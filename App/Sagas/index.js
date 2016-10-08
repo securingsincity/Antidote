@@ -4,15 +4,14 @@ import FixtureAPI from '../Services/FixtureApi'
 import DebugSettings from '../Config/DebugSettings'
 
 /* ------------- Types ------------- */
-
-import { StartupTypes } from '../Redux/StartupRedux'
 import { TemperatureTypes } from '../Redux/TemperatureRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
+import { VerifyTypes } from '../Redux/VerifyPhoneNumberRedux'
 
 /* ------------- Sagas ------------- */
 
-import { startup } from './StartupSagas'
 import { login } from './LoginSagas'
+import { verify } from './VerifyPhoneNumberSaga'
 import { getTemperature } from './TemperatureSagas'
 
 /* ------------- API ------------- */
@@ -26,8 +25,8 @@ const api = DebugSettings.useFixtures ? FixtureAPI : API.create()
 export default function * root () {
   yield [
     // some sagas only receive an action
-    takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(LoginTypes.LOGIN_REQUEST, login),
+    takeLatest(VerifyTypes.VERIFY_REQUEST, verify),
 
     // some sagas receive extra parameters in addition to an action
     takeLatest(TemperatureTypes.TEMPERATURE_REQUEST, getTemperature, api)

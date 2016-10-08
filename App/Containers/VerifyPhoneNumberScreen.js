@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react'
 import {
   View,
   ScrollView,
@@ -12,26 +12,26 @@ import {
 import { connect } from 'react-redux'
 import Styles from './Styles/LoginScreenStyle'
 import {Images, Metrics} from '../Themes'
-import LoginActions from '../Redux/LoginRedux'
+import VerifyActions from '../Redux/VerifyPhoneNumberRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
-export class LoginScreen extends React.Component {
+class VerifyPhoneNumberScreen extends Component {
 
   constructor (props) {
     super(props)
     this.state = {
-      phoneNumber: '',
+      verificationCode: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
-    this.isAttemptingLogin = false
+    this.isAttempting = false
   }
 
   componentWillReceiveProps (newProps) {
     this.forceUpdate()
-    const loginComplete = this.isAttemptingLogin && !newProps.fetching && !newProps.error
-    if (loginComplete) {
-      NavigationActions.verify()
+    // Did the login attempt complete?
+    if (this.isAttempting && !newProps.fetching && !newProps.error) {
+      NavigationActions.mapviewExample()
     }
   }
 
@@ -47,7 +47,7 @@ export class LoginScreen extends React.Component {
     this.keyboardDidHideListener.remove()
   }
 
-  keyboardDidShow = e => {
+  keyboardDidShow = (e) => {
     // Animation types easeInEaseOut/linear/spring
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
     let newSize = Metrics.screenHeight - e.endCoordinates.height
@@ -57,7 +57,7 @@ export class LoginScreen extends React.Component {
     })
   }
 
-  keyboardDidHide = e => {
+  keyboardDidHide = (e) => {
     // Animation types easeInEaseOut/linear/spring
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
     this.setState({
@@ -67,18 +67,20 @@ export class LoginScreen extends React.Component {
   }
 
   handlePressLogin = () => {
-    const { phoneNumber } = this.state
-    this.isAttemptingLogin = true
+    const {verificationCode} = this.state
+    const {phoneNumber} = this.props
+    this.isAttempting = true
     // attempt a login - a saga is listening to pick it up from here.
-    this.props.attemptLogin(phoneNumber)
+    this.props.attemptVerify(phoneNumber, verificationCode)
   }
 
-  handleChangePhonenumber = phoneNumber => {
-    this.setState({ phoneNumber })
+  handleChangeVerificationCode = (text) => {
+    this.setState({ verificationCode: text })
   }
 
   render () {
-    const { phoneNumber } = this.state
+    // const { username, password } = this.state
+    const {verificationCode} = this.state
     const { fetching } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
@@ -88,30 +90,26 @@ export class LoginScreen extends React.Component {
         <Text style={Styles.rowLabel}>{this.props.error}</Text>
         <View style={Styles.form}>
           <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>Phone Number</Text>
+            <Text style={Styles.rowLabel}>Verification Code</Text>
             <TextInput
-              ref='phoneNumber'
+              ref='verificationCode'
               style={textInputStyle}
-              value={phoneNumber}
+              value={verificationCode}
               editable={editable}
               keyboardType='phone-pad'
               returnKeyType='next'
-              onChangeText={this.handleChangePhonenumber}
+              onChangeText={this.handleChangeVerificationCode}
               underlineColorAndroid='transparent'
-              placeholder={'Phone Number'} />
+              placeholder={'Verification Code'} />
           </View>
 
           <View style={[Styles.loginRow]}>
             <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressLogin}>
               <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>I Carry Naloxone</Text>
+                <Text style={Styles.loginText}>Verify</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={NavigationActions.pop}>
-              <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>I Need Help</Text>
-              </View>
-            </TouchableOpacity>
+
           </View>
         </View>
 
@@ -121,23 +119,24 @@ export class LoginScreen extends React.Component {
 
 }
 
-LoginScreen.propTypes = {
+VerifyPhoneNumberScreen.propTypes = {
   dispatch: PropTypes.func,
   fetching: PropTypes.bool,
-  attemptLogin: PropTypes.func
+  attemptVerify: PropTypes.func
 }
 
 const mapStateToProps = state => {
   return {
-    fetching: state.login.fetching,
-    error: state.login.error
+    phoneNumber: state.login.phoneNumber,
+    fetching: state.verifyPhone.fetching,
+    error: state.verifyPhone.error
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (phoneNumber) => dispatch(LoginActions.loginRequest(phoneNumber))
+    attemptVerify: (phoneNumber, verificationCode) => dispatch(VerifyActions.verifyRequest(phoneNumber, verificationCode))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(VerifyPhoneNumberScreen)

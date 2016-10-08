@@ -14,7 +14,14 @@ mockery.warnOnUnregistered(false)
 
 // Mock any libs that get called in here
 // I'm looking at you react-native-router-flux, reactotron etc!
+const reactNativeRouterMocks = {
+  Actions: {
+    pop: () => {}
+  }
+}
+
 mockery.registerMock('reactotron-react-native', {})
+mockery.registerMock('react-native-router-flux', reactNativeRouterMocks)
 mockery.registerMock('reactotron-redux', {})
 mockery.registerMock('reactotron-apisauce', {})
 mockery.registerMock('react-native-animatable', {View: 'Animatable.View'})

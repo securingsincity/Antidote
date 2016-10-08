@@ -4,19 +4,18 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  loginRequest: ['phoneNumber'],
-  loginSuccess: ['phoneNumber', 'token'],
-  loginFailure: ['error'],
-  logout: null
+  verifyRequest: ['phoneNumber', 'verificationCode'],
+  verifySuccess: ['phoneNumber', 'a'],
+  verifyFailure: ['error']
 })
 
-export const LoginTypes = Types
+export const VerifyTypes = Types
 export default Creators
 
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  phoneNumber: null,
+  verificationCode: null,
   error: null,
   fetching: false,
   token: null
@@ -24,27 +23,22 @@ export const INITIAL_STATE = Immutable({
 
 /* ------------- Reducers ------------- */
 
-// we're attempting to login
 export const request = state => state.merge({ fetching: true })
 
-// we've successfully logged in
 export const success = (state, { phoneNumber }) =>
   state.merge({ fetching: false, error: null, phoneNumber })
 
-// we've had a problem logging in
 export const failure = (state, { error }) =>
   state.merge({ fetching: false, error })
 
 // we've logged out
-export const logout = state => INITIAL_STATE
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.LOGIN_REQUEST]: request,
-  [Types.LOGIN_SUCCESS]: success,
-  [Types.LOGIN_FAILURE]: failure,
-  [Types.LOGOUT]: logout
+  [Types.VERIFY_REQUEST]: request,
+  [Types.VERIFY_SUCCESS]: success,
+  [Types.VERIFY_FAILURE]: failure
 })
 
 /* ------------- Selectors ------------- */
