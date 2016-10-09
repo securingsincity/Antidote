@@ -1,20 +1,16 @@
 import apisauce from 'apisauce'
 
 const baseURL = 'http://localhost:9002'
-
+const timeout = 10 * 1000
 const api = apisauce.create({
-    // base URL is read from the "constructor"
   baseURL,
-    // here are some default headers
+  timeout,
   headers: {
     'Cache-Control': 'no-cache'
-  },
-    // 10 second timeout...
-  timeout: 10000
+  }
 })
 
 export default function (phoneNumber) {
-  console.log(phoneNumber)
   return api.post('/users', { phoneNumber })
 }
 

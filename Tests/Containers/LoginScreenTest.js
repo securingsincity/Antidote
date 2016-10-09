@@ -5,19 +5,35 @@ import { shallow } from 'enzyme'
 const wrapper = shallow(<LoginScreen />)
 
 test('component exists', t => {
-  console.log(wrapper)
-  t.is(wrapper.length, 1) // exists
+  t.is(wrapper.length, 1)
 })
 
-// test('component structure', t => {
-//   t.is(wrapper.name(), 'Animatable.View')
-//   t.is(wrapper.children().length, 1) // has 1 child
-//   t.is(wrapper.children().first().name(), 'View') // that child is View
+test('component structure', t => {
+  t.is(wrapper.name(), 'ScrollView')
+  t.is(wrapper.children().length, 3)
+  t.is(wrapper.childAt(0).name(), 'Image')
+  t.is(wrapper.childAt(1).name(), 'Text')
+  t.is(wrapper.childAt(2).name(), 'View')
 
-//   const subview = wrapper.children().first()
-//   // The View should contain the icon and text
-//   t.is(subview.children().length, 2) // has 2 children
-// })
+  const form = wrapper.childAt(2)
+  t.is(form.children().length, 2)
+
+  const phoneNumberInputRow = form.childAt(0)
+  t.is(phoneNumberInputRow.name(), 'View')
+  t.true(phoneNumberInputRow.contains('Phone Number'))
+  t.is(phoneNumberInputRow.childAt(0).name(), 'Text')
+
+  const buttons = form.childAt(1)
+  t.is(buttons.name(), 'View')
+
+  const firstButton = buttons.childAt(0)
+  t.is(firstButton.name(), 'TouchableOpacity')
+  t.true(firstButton.contains('I Carry Naloxone'))
+
+  const secondButton = buttons.childAt(1)
+  t.is(secondButton.name(), 'TouchableOpacity')
+  t.true(secondButton.contains('I Need Help'))
+})
 
 // test('Has text and set properly', t => {
 //   t.is(wrapper.containsMatchingElement(<Text>HOWDY</Text>), true)
