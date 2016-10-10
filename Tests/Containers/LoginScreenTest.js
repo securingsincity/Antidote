@@ -1,7 +1,12 @@
 import test from 'ava'
 import React from 'react'
-import { LoginScreen } from '../../App/Containers/LoginScreen'
+import * as LoginScreenComponent from '../../App/Containers/LoginScreen'
 import { shallow } from 'enzyme'
+import { Text } from 'react-native'
+import * as sinon from 'sinon'
+// import * as Actions from 'react-native-router-flux'
+
+const LoginScreen = LoginScreenComponent.LoginScreen
 const wrapper = shallow(<LoginScreen />)
 
 test('component exists', t => {
@@ -35,25 +40,28 @@ test('component structure', t => {
   t.true(secondButton.contains('I Need Help'))
 })
 
-// test('Has text and set properly', t => {
-//   t.is(wrapper.containsMatchingElement(<Text>HOWDY</Text>), true)
-// })
+test('sets errors from the props', t => {
+  const wrapper = shallow(<LoginScreen error='FOOBAR ERROR TEXT' />)
+  t.is(wrapper.containsMatchingElement(<Text>FOOBAR ERROR TEXT</Text>), true)
+})
 
-// test('Has Icon and set properly', t => {
-//   // default
-//   t.is(wrapper.containsMatchingElement(<Icon name='ios-alert' />), true)
+test('attempts to login', t => {
+  const attemptLoginFn = sinon.stub()
+  const wrapper = shallow(<LoginScreen attemptLogin={attemptLoginFn} error='FOOBAR ERROR TEXT' />)
+  const form = wrapper.childAt(2)
+  const buttons = form.childAt(1)
+  const firstButton = buttons.childAt(0)
+  firstButton.simulate('press')
+  t.true(attemptLoginFn.called)
+})
 
-//   // custom
-//   const custom = shallow(<LoginScreen onPress={() => {}} title='howdy' icon='test' />)
-//   t.is(custom.containsMatchingElement(<Icon name='test' />), true)
-// })
+// TODO: Figure out how to work with routing.
+// test('direct the user to the verify page of successful login', t => {
+//   const ActionsSpy = sinon.stub(Actions, 'verify')
+//   const wrapper = shallow(<LoginScreen />)
+//   wrapper.setState({ isAttemptingLogin: true})
+//   wrapper.setProps({ fetching: false, error: false})
+//   console.log(ActionsSpy)
+//   t.true(ActionsSpy.called)
 
-// test('style props are passed to top view', t => {
-//   const withStyle = shallow(<LoginScreen title='howdy' style={{color: 'red'}} />)
-//   t.is(withStyle.props().style[1].color, 'red')
-// })
-
-// test('show false', t => {
-//   const hidden = shallow(<LoginScreen title='howdy' show={false} />)
-//   t.is(hidden.children().length, 0)
 // })

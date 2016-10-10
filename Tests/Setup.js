@@ -16,7 +16,8 @@ mockery.warnOnUnregistered(false)
 // I'm looking at you react-native-router-flux, reactotron etc!
 const reactNativeRouterMocks = {
   Actions: {
-    pop: () => {}
+    pop: () => {},
+    verify: () => {}
   }
 }
 

@@ -22,14 +22,14 @@ export class LoginScreen extends React.Component {
     this.state = {
       phoneNumber: '',
       visibleHeight: Metrics.screenHeight,
-      topLogo: { width: Metrics.screenWidth }
+      topLogo: { width: Metrics.screenWidth },
+      isAttemptingLogin: false
     }
-    this.isAttemptingLogin = false
   }
 
   componentWillReceiveProps (newProps) {
     this.forceUpdate()
-    const loginComplete = this.isAttemptingLogin && !newProps.fetching && !newProps.error
+    const loginComplete = this.state.isAttemptingLogin && !newProps.fetching && !newProps.error
     if (loginComplete) {
       NavigationActions.verify()
     }
@@ -68,7 +68,7 @@ export class LoginScreen extends React.Component {
 
   handlePressLogin = () => {
     const { phoneNumber } = this.state
-    this.isAttemptingLogin = true
+    this.setState({isAttemptingLogin: true})
     // attempt a login - a saga is listening to pick it up from here.
     this.props.attemptLogin(phoneNumber)
   }
@@ -134,7 +134,7 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+export const mapDispatchToProps = (dispatch) => {
   return {
     attemptLogin: (phoneNumber) => dispatch(LoginActions.loginRequest(phoneNumber))
   }
