@@ -4,7 +4,7 @@ import * as LoginScreenComponent from '../../App/Containers/LoginScreen'
 import { shallow } from 'enzyme'
 import { Text } from 'react-native'
 import * as sinon from 'sinon'
-// import * as Actions from 'react-native-router-flux'
+import { Actions as NavigationActions } from 'react-native-router-flux'
 
 const LoginScreen = LoginScreenComponent.LoginScreen
 const wrapper = shallow(<LoginScreen />)
@@ -55,13 +55,10 @@ test('attempts to login', t => {
   t.true(attemptLogin.called)
 })
 
-// TODO: Figure out how to work with routing.
-// test('direct the user to the verify page of successful login', t => {
-//   const ActionsSpy = sinon.stub(Actions, 'verify')
-//   const wrapper = shallow(<LoginScreen />)
-//   wrapper.setState({ isAttemptingLogin: true})
-//   wrapper.setProps({ fetching: false, error: false})
-//   console.log(ActionsSpy)
-//   t.true(ActionsSpy.called)
-
-// })
+test('direct the user to the verify page after successful login', t => {
+  const VerifyStub = sinon.stub(NavigationActions, 'verify')
+  const wrapper = shallow(<LoginScreen />)
+  wrapper.setState({ isAttemptingLogin: true })
+  wrapper.setProps({ fetching: false, error: false })
+  t.true(VerifyStub.called)
+})
