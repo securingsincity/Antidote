@@ -14,5 +14,6 @@ test('coercePhoneNumber does nothing to a phone number with us country code', t 
 })
 
 test('coercePhoneNumber throws error when phone number is under 10 char', t => {
-  t.throws(() => coercePhoneNumber('1'), 'Phone Number not long enough')
+  const failedCoerce = coercePhoneNumber('1')
+  t.true(failedCoerce instanceof Error)
 })
