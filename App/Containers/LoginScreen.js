@@ -133,7 +133,7 @@ const mapStateToProps = state => {
   }
 }
 
-export const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     attemptLogin: (phoneNumber) => dispatch(LoginActions.loginRequest(phoneNumber))
   }

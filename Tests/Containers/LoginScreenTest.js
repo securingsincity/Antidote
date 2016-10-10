@@ -6,8 +6,9 @@ import { Text } from 'react-native'
 import * as sinon from 'sinon'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
-const LoginScreen = LoginScreenComponent.LoginScreen
-const wrapper = shallow(<LoginScreen />)
+const {LoginScreen} = LoginScreenComponent
+let wrapper
+test.beforeEach(t => wrapper = shallow(<LoginScreen />))
 
 test('component exists', t => {
   t.is(wrapper.length, 1)
@@ -42,7 +43,7 @@ test('component structure', t => {
 
 test('sets errors from the props', t => {
   wrapper.setProps({error: 'FOOBAR ERROR TEXT'})
-  t.is(wrapper.containsMatchingElement(<Text>FOOBAR ERROR TEXT</Text>), true)
+  t.true(wrapper.containsMatchingElement(<Text>FOOBAR ERROR TEXT</Text>))
 })
 
 test('attempts to login', t => {
@@ -51,6 +52,7 @@ test('attempts to login', t => {
   const form = wrapper.childAt(2)
   const buttons = form.childAt(1)
   const firstButton = buttons.childAt(0)
+  t.false(attemptLogin.called)
   firstButton.simulate('press')
   t.true(attemptLogin.called)
 })
