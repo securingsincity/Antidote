@@ -22,14 +22,14 @@ export class LoginScreen extends React.Component {
     this.state = {
       phoneNumber: '',
       visibleHeight: Metrics.screenHeight,
-      topLogo: { width: Metrics.screenWidth }
+      topLogo: { width: Metrics.screenWidth },
+      isAttemptingLogin: false
     }
-    this.isAttemptingLogin = false
   }
 
   componentWillReceiveProps (newProps) {
     this.forceUpdate()
-    const loginComplete = this.isAttemptingLogin && !newProps.fetching && !newProps.error
+    const loginComplete = this.state.isAttemptingLogin && !newProps.fetching && !newProps.error
     if (loginComplete) {
       NavigationActions.verify()
     }
@@ -68,26 +68,26 @@ export class LoginScreen extends React.Component {
 
   handlePressLogin = () => {
     const { phoneNumber } = this.state
-    this.isAttemptingLogin = true
+    this.setState({isAttemptingLogin: true})
     // attempt a login - a saga is listening to pick it up from here.
     this.props.attemptLogin(phoneNumber)
   }
 
-  handleChangePhonenumber = phoneNumber => {
+  handleChangePhoneNumber = phoneNumber => {
     this.setState({ phoneNumber })
   }
 
   render () {
     const { phoneNumber } = this.state
-    const { fetching } = this.props
+    const { fetching, error } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]}>
         <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
-        <Text style={Styles.rowLabel}>{this.props.error}</Text>
+        <Text style={Styles.rowLabel}>{error}</Text>
         <View style={Styles.form}>
-          <View style={Styles.row}>
+          <View style={Styles.row} id='phone-number-input-row'>
             <Text style={Styles.rowLabel}>Phone Number</Text>
             <TextInput
               ref='phoneNumber'
@@ -96,7 +96,7 @@ export class LoginScreen extends React.Component {
               editable={editable}
               keyboardType='phone-pad'
               returnKeyType='next'
-              onChangeText={this.handleChangePhonenumber}
+              onChangeText={this.handleChangePhoneNumber}
               underlineColorAndroid='transparent'
               placeholder={'Phone Number'} />
           </View>
@@ -134,7 +134,7 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+export const mapDispatchToProps = (dispatch) => {
   return {
     attemptLogin: (phoneNumber) => dispatch(LoginActions.loginRequest(phoneNumber))
   }
