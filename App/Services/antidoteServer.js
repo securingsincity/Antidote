@@ -1,5 +1,5 @@
 import apisauce from 'apisauce'
-
+import { corercePhoneNumber } from './utils'
 const baseURL = 'http://localhost:9002'
 const timeout = 10 * 1000
 const api = apisauce.create({
@@ -11,7 +11,8 @@ const api = apisauce.create({
 })
 
 export default function (phoneNumber) {
-  return api.post('/users', { phoneNumber })
+  const coercedNumber = corercePhoneNumber(phoneNumber)
+  return api.post('/users', { phoneNumber: coercedNumber })
 }
 
 export const login = (phoneNumber, verificationCode) => {

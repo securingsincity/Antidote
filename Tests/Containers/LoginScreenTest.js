@@ -41,18 +41,18 @@ test('component structure', t => {
 })
 
 test('sets errors from the props', t => {
-  const wrapper = shallow(<LoginScreen error='FOOBAR ERROR TEXT' />)
+  wrapper.setProps({error: 'FOOBAR ERROR TEXT'})
   t.is(wrapper.containsMatchingElement(<Text>FOOBAR ERROR TEXT</Text>), true)
 })
 
 test('attempts to login', t => {
-  const attemptLoginFn = sinon.stub()
-  const wrapper = shallow(<LoginScreen attemptLogin={attemptLoginFn} error='FOOBAR ERROR TEXT' />)
+  const attemptLogin = sinon.stub()
+  wrapper.setProps({attemptLogin})
   const form = wrapper.childAt(2)
   const buttons = form.childAt(1)
   const firstButton = buttons.childAt(0)
   firstButton.simulate('press')
-  t.true(attemptLoginFn.called)
+  t.true(attemptLogin.called)
 })
 
 // TODO: Figure out how to work with routing.

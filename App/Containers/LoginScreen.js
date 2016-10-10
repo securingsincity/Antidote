@@ -69,7 +69,6 @@ export class LoginScreen extends React.Component {
   handlePressLogin = () => {
     const { phoneNumber } = this.state
     this.setState({isAttemptingLogin: true})
-    // attempt a login - a saga is listening to pick it up from here.
     this.props.attemptLogin(phoneNumber)
   }
 
