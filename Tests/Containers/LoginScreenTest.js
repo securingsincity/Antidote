@@ -4,10 +4,11 @@ import * as LoginScreenComponent from '../../App/Containers/LoginScreen'
 import { shallow } from 'enzyme'
 import { Text } from 'react-native'
 import * as sinon from 'sinon'
-// import * as Actions from 'react-native-router-flux'
+import { Actions as NavigationActions } from 'react-native-router-flux'
 
-const LoginScreen = LoginScreenComponent.LoginScreen
-const wrapper = shallow(<LoginScreen />)
+const {LoginScreen} = LoginScreenComponent
+let wrapper
+test.beforeEach(t => wrapper = shallow(<LoginScreen />))
 
 test('component exists', t => {
   t.is(wrapper.length, 1)
@@ -41,27 +42,25 @@ test('component structure', t => {
 })
 
 test('sets errors from the props', t => {
-  const wrapper = shallow(<LoginScreen error='FOOBAR ERROR TEXT' />)
-  t.is(wrapper.containsMatchingElement(<Text>FOOBAR ERROR TEXT</Text>), true)
+  wrapper.setProps({error: 'FOOBAR ERROR TEXT'})
+  t.true(wrapper.containsMatchingElement(<Text>FOOBAR ERROR TEXT</Text>))
 })
 
 test('attempts to login', t => {
-  const attemptLoginFn = sinon.stub()
-  const wrapper = shallow(<LoginScreen attemptLogin={attemptLoginFn} error='FOOBAR ERROR TEXT' />)
+  const attemptLogin = sinon.stub()
+  wrapper.setProps({attemptLogin})
   const form = wrapper.childAt(2)
   const buttons = form.childAt(1)
   const firstButton = buttons.childAt(0)
+  t.false(attemptLogin.called)
   firstButton.simulate('press')
-  t.true(attemptLoginFn.called)
+  t.true(attemptLogin.called)
 })
 
-// TODO: Figure out how to work with routing.
-// test('direct the user to the verify page of successful login', t => {
-//   const ActionsSpy = sinon.stub(Actions, 'verify')
-//   const wrapper = shallow(<LoginScreen />)
-//   wrapper.setState({ isAttemptingLogin: true})
-//   wrapper.setProps({ fetching: false, error: false})
-//   console.log(ActionsSpy)
-//   t.true(ActionsSpy.called)
-
-// })
+test('direct the user to the verify page after successful login', t => {
+  const VerifyStub = sinon.stub(NavigationActions, 'verify')
+  const wrapper = shallow(<LoginScreen />)
+  wrapper.setState({ isAttemptingLogin: true })
+  wrapper.setProps({ fetching: false, error: false })
+  t.true(VerifyStub.called)
+})
