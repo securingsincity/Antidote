@@ -6,6 +6,8 @@ import NavigationDrawer from './NavigationDrawer'
 // screens we are actually using
 import LoginScreen from '../Containers/LoginScreen'
 import VerifyPhoneNumberScreen from '../Containers/VerifyPhoneNumberScreen'
+import ResponderWelcomeScreen from '../Containers/ResponderWelcomeScreen'
+import Profile from '../Containers/Profile'
 import MapviewExample from '../Containers/MapviewExample'
 
 // screens identified by the router
@@ -55,6 +57,9 @@ class NavigationRouter extends Component {
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
             <Scene key='verify' component={VerifyPhoneNumberScreen} title='Verify Your Phone Number' hideNavBar />
             <Scene initial key='login' component={LoginScreen} title='Login' hideNavBar />
+            <Scene key='welcome' component={ResponderWelcomeScreen} title='Welcome' hideNavBar />
+            <Scene key='profile' component={Profile} title='Profile' hideNavBar />
+
             <Scene key='mapviewExample' component={MapviewExample} title='Mapview Example' />
           </Scene>
         </Scene>
