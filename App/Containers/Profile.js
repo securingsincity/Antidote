@@ -12,24 +12,25 @@ import {
 import { connect } from 'react-redux'
 import Styles from './Styles/LoginScreenStyle'
 import {Images, Metrics} from '../Themes'
-import LoginActions from '../Redux/LoginRedux'
+import ProfileActions from '../Redux/ProfileRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
-export class LoginScreen extends React.Component {
+export class Profile extends React.Component {
 
   constructor (props) {
     super(props)
     this.state = {
       phoneNumber: '',
+      name: '',
       visibleHeight: Metrics.screenHeight,
-      topLogo: { width: Metrics.screenWidth },
-      isAttemptingLogin: false
+      topLogo: { width: Metrics.screenWidth }
     }
+    this.isAttemptingLogin = false
   }
 
   componentWillReceiveProps (newProps) {
     this.forceUpdate()
-    const loginComplete = this.state.isAttemptingLogin && !newProps.fetching && !newProps.error
+    const loginComplete = this.isAttemptingLogin && !newProps.fetching && !newProps.error
     if (loginComplete) {
       NavigationActions.verify()
     }
@@ -68,25 +69,41 @@ export class LoginScreen extends React.Component {
 
   handlePressLogin = () => {
     const { phoneNumber } = this.state
-    this.setState({isAttemptingLogin: true})
-    this.props.attemptLogin(phoneNumber)
+    this.isAttemptingLogin = true
+    // attempt a login - a saga is listening to pick it up from here.
+    this.props.updateProfile(phoneNumber)
   }
 
-  handleChangePhoneNumber = phoneNumber => {
+  handleChangePhonenumber = phoneNumber => {
     this.setState({ phoneNumber })
   }
 
+  handleChangeName = name => {
+    this.setState({ name })
+  }
+
   render () {
-    const { phoneNumber } = this.state
-    const { fetching, error } = this.props
+    const { phoneNumber, name } = this.state
+    const { fetching } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]}>
-        <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
-        <Text style={Styles.rowLabel}>{error}</Text>
+        <Text style={Styles.rowLabel}>{this.props.error}</Text>
+        <Text style={Styles.rowLabel}>Edit Profile</Text>
         <View style={Styles.form}>
-          <View style={Styles.row} id='phone-number-input-row'>
+          <View style={Styles.row}>
+            <Text style={Styles.rowLabel}>First Name</Text>
+            <TextInput
+              ref='name'
+              style={textInputStyle}
+              value={name}
+              editable={editable}
+              keyboardType='phone-pad'
+              returnKeyType='next'r
+              onChangeText={this.handleChangeName}
+              underlineColorAndroid='transparent'
+              placeholder={'John Smith'} />
             <Text style={Styles.rowLabel}>Phone Number</Text>
             <TextInput
               ref='phoneNumber'
@@ -95,20 +112,15 @@ export class LoginScreen extends React.Component {
               editable={editable}
               keyboardType='phone-pad'
               returnKeyType='next'
-              onChangeText={this.handleChangePhoneNumber}
+              onChangeText={this.handleChangePhonenumber}
               underlineColorAndroid='transparent'
-              placeholder={'Phone Number'} />
+              placeholder={'555-555-1111'} />
           </View>
 
           <View style={[Styles.loginRow]}>
             <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressLogin}>
               <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>I Carry Naloxone</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={NavigationActions.pop}>
-              <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>I Need Help</Text>
+                <Text style={Styles.loginText}>Save</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -120,23 +132,23 @@ export class LoginScreen extends React.Component {
 
 }
 
-LoginScreen.propTypes = {
+Profile.propTypes = {
   dispatch: PropTypes.func,
   fetching: PropTypes.bool,
-  attemptLogin: PropTypes.func
+  updateProfile: PropTypes.func
 }
 
 const mapStateToProps = state => {
   return {
-    fetching: state.login.fetching,
-    error: state.login.error
+    fetching: state.profile.fetching,
+    error: state.profile.error
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (phoneNumber) => dispatch(LoginActions.loginRequest(phoneNumber))
+    updateProfile: (phoneNumber, name) => dispatch(ProfileActions.profileRequest(phoneNumber, name))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)

@@ -31,7 +31,7 @@ class VerifyPhoneNumberScreen extends Component {
     this.forceUpdate()
     // Did the login attempt complete?
     if (this.isAttempting && !newProps.fetching && !newProps.error) {
-      NavigationActions.mapviewExample()
+      NavigationActions.welcome()
     }
   }
 
