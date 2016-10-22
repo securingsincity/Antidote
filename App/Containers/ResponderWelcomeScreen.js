@@ -28,18 +28,6 @@ class WelcomeScreen extends Component {
     NavigationActions.drawer() 
   }
 
-
-  sideBox(defaultWidth) {
-    const widthInTenths = (defaultWidth/10)
-    return (
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{width: widthInTenths * 2}}/>
-        <View style={{borderTopWidth: 1, borderTopColor: '#000000', width: widthInTenths * 6 }} />
-        <View style={{width: widthInTenths * 2}}/>
-      </View>
-      )
-  }
-
   welcomeBar() {
     const screenWidthIn12 = (Metrics.screenWidth/12)
     return  ( 
@@ -51,6 +39,17 @@ class WelcomeScreen extends Component {
         {this.sideBox(screenWidthIn12*5)} 
       </View>
     )
+  }
+
+  sideBox(defaultWidth) {
+    const widthInTenths = (defaultWidth/10)
+    return (
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{width: widthInTenths * 2}}/>
+        <View style={{borderTopWidth: 1, borderTopColor: '#000000', width: widthInTenths * 6 }} />
+        <View style={{width: widthInTenths * 2}}/>
+      </View>
+      )
   }
 
   render () {
