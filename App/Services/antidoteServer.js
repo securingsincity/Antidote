@@ -16,6 +16,6 @@ export default function (phoneNumber) {
 }
 
 export const login = (phoneNumber, verificationCode) => {
-  return api.post('/login', {phoneNumber, verificationCode})
+  return api.post('/login', {phoneNumber: `+1${phoneNumber}`, verificationCode})
 }
 

@@ -12,7 +12,6 @@ import {
 import { connect } from 'react-redux'
 import Styles from './Styles/WelcomeScreenStyle'
 import {Images, Metrics, Colors} from '../Themes'
-import VerifyActions from '../Redux/VerifyPhoneNumberRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
 class WelcomeScreen extends Component {

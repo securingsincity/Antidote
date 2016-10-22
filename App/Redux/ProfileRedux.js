@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
   verifyRequest: ['phoneNumber', 'verificationCode'],
-  verifySuccess: ['phoneNumber', 'a'],
+  verifySuccess: ['phoneNumber', 'token', 'user'],
   verifyFailure: ['error']
 })
 
@@ -18,15 +18,17 @@ export const INITIAL_STATE = Immutable({
   verificationCode: null,
   error: null,
   fetching: false,
-  token: null
+  token: null,
+  user: {},
 })
 
 /* ------------- Reducers ------------- */
 
 export const request = state => state.merge({ fetching: true })
 
-export const success = (state, { phoneNumber }) =>
-  state.merge({ fetching: false, error: null, phoneNumber })
+export const success = (state, { phoneNumber }) =>{
+  state.merge({ fetching: false, error: null, phoneNumber, token, user })
+}
 
 export const failure = (state, { error }) =>
   state.merge({ fetching: false, error })

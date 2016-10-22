@@ -12,7 +12,7 @@ import {
 import { connect } from 'react-redux'
 import Styles from './Styles/LoginScreenStyle'
 import {Images, Metrics} from '../Themes'
-import VerifyActions from '../Redux/VerifyPhoneNumberRedux'
+import VerifyActions from '../Redux/ProfileRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
 class VerifyPhoneNumberScreen extends Component {

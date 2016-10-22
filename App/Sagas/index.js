@@ -6,12 +6,12 @@ import DebugSettings from '../Config/DebugSettings'
 /* ------------- Types ------------- */
 import { TemperatureTypes } from '../Redux/TemperatureRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
-import { VerifyTypes } from '../Redux/VerifyPhoneNumberRedux'
+import { VerifyTypes } from '../Redux/ProfileRedux'
 
 /* ------------- Sagas ------------- */
 
 import { login } from './LoginSagas'
-import { verify } from './VerifyPhoneNumberSaga'
+import { verify } from './ProfileSaga'
 import { getTemperature } from './TemperatureSagas'
 
 /* ------------- API ------------- */
