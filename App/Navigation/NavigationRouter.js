@@ -56,8 +56,8 @@ class NavigationRouter extends Component {
         <Scene key='drawer' component={NavigationDrawer} open={false}>
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
             <Scene key='verify' component={VerifyPhoneNumberScreen} title='Verify Your Phone Number' hideNavBar />
-            <Scene key='login' component={LoginScreen} title='Login' hideNavBar />
-            <Scene initial key='welcome' component={ResponderWelcomeScreen} title='Welcome' hideNavBar />
+            <Scene initial key='login' component={LoginScreen} title='Login' hideNavBar />
+            <Scene key='welcome' component={ResponderWelcomeScreen} title='Welcome' hideNavBar />
             <Scene key='profile' component={Profile} title='Profile' hideNavBar />
 
             <Scene key='mapviewExample' component={MapviewExample} title='Mapview Example' />
