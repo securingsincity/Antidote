@@ -28,7 +28,6 @@ class WelcomeScreen extends Component {
     NavigationActions.drawer() 
   }
 
-
   sideBox(defaultWidth) {
     const widthInTenths = (defaultWidth/10)
     return (
