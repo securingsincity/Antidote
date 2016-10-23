@@ -86,10 +86,9 @@ export class LoginScreen extends React.Component {
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     return (
-      <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]}>
+      <View contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]}>
         <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
-        <Text style={Styles.rowLabel}>{error}</Text>
-        <View style={Styles.form}>
+        <View style={[Styles.form, { borderWidth: 1, borderColor: 'black', borderRadius: 0 }]}>
           <View style={Styles.row} id='phone-number-input-row'>
             <Text style={Styles.rowLabel}>Phone Number</Text>
             <TextInput
@@ -100,25 +99,25 @@ export class LoginScreen extends React.Component {
               keyboardType='phone-pad'
               returnKeyType='next'
               onChangeText={this.handleChangePhoneNumber}
-              underlineColorAndroid='transparent'
-              placeholder={'Phone Number'} />
+              underlineColorAndroid='transparent' />
           </View>
 
           <View style={[Styles.loginRow]}>
             <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressLogin}>
               <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>I Carry Naloxone</Text>
+                <Text style={Styles.loginText}>I CARRY NALOXONE</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressINeedHelp}>
-              <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>I Need Help</Text>
+              <View style={Styles.loginButtonRight}>
+                <Text style={Styles.loginText}>I NEED HELP</Text>
               </View>
             </TouchableOpacity>
           </View>
         </View>
+        <Text style={[Styles.rowLabel, {paddingLeft: 20}]}>{error}</Text>
 
-      </ScrollView>
+      </View>
     )
   }
 

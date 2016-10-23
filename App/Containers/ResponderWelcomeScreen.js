@@ -28,20 +28,6 @@ class WelcomeScreen extends Component {
     NavigationActions.drawer() 
   }
 
-  welcomeBar() {
-    const screenWidthIn12 = (Metrics.screenWidth/12)
-    return  ( 
-      <View style={{flexDirection: 'row', alignItems: 'center', paddingTop: 70}}>
-        {this.sideBox(screenWidthIn12*5)} 
-        <View style={{width: screenWidthIn12*2}}>
-          <Text style={{textAlign: 'center', fontWeight: '600'}}>Welcome</Text><View />
-        </View>
-        {this.sideBox(screenWidthIn12*5)} 
-      </View>
-    )
-  }
-
-
   sideBox(defaultWidth) {
     const widthInTenths = (defaultWidth/10)
     return (
