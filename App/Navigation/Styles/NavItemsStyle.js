@@ -5,6 +5,7 @@ export default StyleSheet.create({
   navButtonLeft: {
     marginLeft: Metrics.baseMargin,
     backgroundColor: Colors.transparent,
-    width: Metrics.icons.medium
+    width: Metrics.icons.medium,
+    color: Colors.charcoal
   }
 })

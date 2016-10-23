@@ -8,12 +8,12 @@ export default {
     backgroundColor: Colors.background
   },
   title: {
-    color: Colors.snow
+    color: Colors.coal
   },
   leftButton: {
-    tintColor: Colors.snow
+    tintColor: Colors.coal
   },
   rightButton: {
-    color: Colors.snow
+    color: Colors.coal
   }
 }

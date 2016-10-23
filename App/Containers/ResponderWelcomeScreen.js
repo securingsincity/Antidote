@@ -25,7 +25,7 @@ class WelcomeScreen extends Component {
   }
 
   handlePressSetupProfile() {
-    NavigationActions.mapviewExample() 
+    NavigationActions.drawer() 
   }
 
 

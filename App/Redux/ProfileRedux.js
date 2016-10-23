@@ -26,9 +26,9 @@ export const INITIAL_STATE = Immutable({
 
 export const request = state => state.merge({ fetching: true })
 
-export const success = (state, { phoneNumber }) =>{
+export const success = (state, { phoneNumber, token, user }) =>
   state.merge({ fetching: false, error: null, phoneNumber, token, user })
-}
+
 
 export const failure = (state, { error }) =>
   state.merge({ fetching: false, error })

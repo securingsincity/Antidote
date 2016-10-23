@@ -16,7 +16,7 @@ class NavigationDrawer extends Component {
     return (
       <Drawer
         ref='navigation'
-        type='displace'
+        type='static'
         open={state.open}
         onOpen={() => NavigationActions.refresh({key: state.key, open: true})}
         onClose={() => NavigationActions.refresh({key: state.key, open: false})}

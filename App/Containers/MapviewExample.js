@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import MapView from 'react-native-maps'
 import { calculateRegion } from '../Lib/MapHelpers'
 import MapCallout from '../Components/MapCallout'
 import Styles from './Styles/MapviewExampleStyle'
+import{ hamburgerButton } from '../Navigation/NavItems'
 
 /* ***********************************************************
 * IMPORTANT!!! Before you get started, if you are going to support Android,
@@ -100,15 +101,16 @@ class MapviewExample extends React.Component {
 
   render () {
     return (
-      <View style={Styles.container}>
-        <MapView
-          style={Styles.map}
-          initialRegion={this.state.region}
-          onRegionChangeComplete={this.onRegionChange}
-          showsUserLocation={this.state.showUserLocation}
-        >
-          {this.state.locations.map((location) => this.renderMapMarkers(location))}
-        </MapView>
+      <View style={Styles.mainContainer}>
+        
+          <MapView
+            style={Styles.map}
+            initialRegion={this.state.region}
+            onRegionChangeComplete={this.onRegionChange}
+            showsUserLocation={this.state.showUserLocation}
+          >
+            {this.state.locations.map((location) => this.renderMapMarkers(location))}
+          </MapView>
       </View>
     )
   }

@@ -75,7 +75,11 @@ export class LoginScreen extends React.Component {
   handleChangePhoneNumber = phoneNumber => {
     this.setState({ phoneNumber })
   }
-
+  handlePressINeedHelp =  () => {
+    // const { phoneNumber } = this.state
+    // this.setState({isAttemptingLogin: true})
+    NavigationActions.needsHelp()
+  }
   render () {
     const { phoneNumber } = this.state
     const { fetching, error } = this.props
@@ -106,7 +110,7 @@ export class LoginScreen extends React.Component {
                 <Text style={Styles.loginText}>I Carry Naloxone</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={NavigationActions.pop}>
+            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressINeedHelp}>
               <View style={Styles.loginButton}>
                 <Text style={Styles.loginText}>I Need Help</Text>
               </View>

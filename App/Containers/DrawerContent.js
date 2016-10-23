@@ -13,23 +13,14 @@ class DrawerContent extends Component {
 
   handlePressComponents = () => {
     this.toggleDrawer()
-    NavigationActions.componentExamples()
+    NavigationActions.home()
   }
 
-  handlePressUsage = () => {
+  handleProfile = () => {
     this.toggleDrawer()
-    NavigationActions.usageExamples()
+    NavigationActions.profile()
   }
 
-  handlePressAPI = () => {
-    this.toggleDrawer()
-    NavigationActions.apiTesting()
-  }
-
-  handlePressTheme = () => {
-    this.toggleDrawer()
-    NavigationActions.theme()
-  }
 
   handlePressDevice = () => {
     this.toggleDrawer()
@@ -40,11 +31,9 @@ class DrawerContent extends Component {
     return (
       <ScrollView style={styles.container}>
         <Image source={Images.logo} style={styles.logo} />
-        <DrawerButton text='Component Examples' onPress={this.handlePressComponents} />
-        <DrawerButton text='Usage Examples' onPress={this.handlePressUsage} />
-        <DrawerButton text='API Testing' onPress={this.handlePressAPI} />
-        <DrawerButton text='Themes' onPress={this.handlePressTheme} />
-        <DrawerButton text='Device Info' onPress={this.handlePressDevice} />
+        <DrawerButton text='Home' onPress={this.handlePressComponents} />
+        <DrawerButton text='Profile' onPress={this.handleProfile} />
+        <DrawerButton text='Settings' onPress={this.handleProfile} />
       </ScrollView>
     )
   }

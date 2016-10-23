@@ -128,8 +128,8 @@ VerifyPhoneNumberScreen.propTypes = {
 const mapStateToProps = state => {
   return {
     phoneNumber: state.login.phoneNumber,
-    fetching: state.verifyPhone.fetching,
-    error: state.verifyPhone.error
+    fetching: state.profile.fetching,
+    error: state.profile.error
   }
 }
 

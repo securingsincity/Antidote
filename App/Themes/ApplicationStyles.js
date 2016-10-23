@@ -10,7 +10,6 @@ const ApplicationStyles = {
     mainContainer: {
       flex: 1,
       marginTop: Metrics.navBarHeight,
-      backgroundColor: Colors.transparent
     },
     backgroundImage: {
       position: 'absolute',
@@ -65,8 +64,6 @@ const ApplicationStyles = {
     padding: Metrics.smallMargin,
     marginTop: Metrics.smallMargin,
     marginHorizontal: Metrics.baseMargin,
-    borderWidth: 1,
-    borderColor: Colors.ember,
     alignItems: 'center',
     textAlign: 'center'
   }
