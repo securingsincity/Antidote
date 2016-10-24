@@ -40,10 +40,9 @@ export default {
     return (
       <TouchableOpacity onPress={openCall911}>
         <Text name='angle-left'
-          size={Metrics.icons.medium}
           color={Colors.coal}
-          style={styles.navButtonLeft}
-        >Call 911</Text>
+          style={styles.navButtonLeftLong}
+        ><Icon name='phone' size={13} color={Colors.coal} /> 911</Text>
       </TouchableOpacity>
     )
   },

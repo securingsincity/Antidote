@@ -1,11 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import MapView from 'react-native-maps'
 import { calculateRegion } from '../Lib/MapHelpers'
 import MapCallout from '../Components/MapCallout'
 import Styles from './Styles/MapviewExampleStyle'
-import{ hamburgerButton } from '../Navigation/NavItems'
 
 /* ***********************************************************
 * IMPORTANT!!! Before you get started, if you are going to support Android,
@@ -23,59 +22,91 @@ class MapviewExample extends React.Component {
   * There are TONS of options available from traffic to buildings to indoors to compass and more!
   * For full documentation, see https://github.com/lelandrichardson/react-native-maps
   *************************************************************/
-
+  state = {
+    initialPosition: 'unknown',
+    region: {
+      latitude: 0,
+      longitude: 0,
+      longitudeDelta : 0.1,
+      latitudeDelta : 0.1
+    },
+    dropPoint: {},
+    lastPosition: 'unknown',
+  };
+  watchID: ?number = null;
   constructor (props) {
     super(props)
-    /* ***********************************************************
-    * STEP 1
-    * Set the array of locations to be displayed on your map. You'll need to define at least
-    * a latitude and longitude as well as any additional information you wish to display.
-    *************************************************************/
-    const locations = [
-      { title: 'Location A', latitude: 37.78825, longitude: -122.4324 },
-      { title: 'Location B', latitude: 37.75825, longitude: -122.4624 }
-    ]
-    /* ***********************************************************
-    * STEP 2
-    * Set your initial region either by dynamically calculating from a list of locations (as below)
-    * or as a fixed point, eg: { latitude: 123, longitude: 123, latitudeDelta: 0.1, longitudeDelta: 0.1}
-    *************************************************************/
-    const region = calculateRegion(locations, { latPadding: 0.05, longPadding: 0.05 })
+    
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const latitude = position.coords.latitude
+        const longitude = position.coords.longitude
+        console.log('position', position.coords)
+        const longitudeDelta = 0.1;
+        const latitudeDelta = 0.1;
+        this.setState({
+          initialPosition: {
+            latitude,
+            longitude,
+          },
+          dropPoint: {
+            latitude,
+            longitude,
+          },
+          region: {
+            latitude,
+            longitude,
+            latitudeDelta,
+            longitudeDelta
+          }
+        });
+      },
+      (error) => alert(JSON.stringify(error)),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+    
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+      const latitude = position.coords.latitude
+      const longitude = position.coords.longitude
+      const longitudeDelta = 0.1;
+      const latitudeDelta = 0.1;
+      console.log('position', position.coords)
+      this.setState({
+        initialPosition: {
+          latitude,
+          longitude,
+        },
+        dropPoint: {
+          latitude,
+          longitude,
+        },
+        region: {
+          latitude,
+          longitude,
+          latitudeDelta,
+          longitudeDelta
+        }
+      });
+    });
+
     this.state = {
-      region,
-      locations,
       showUserLocation: true
     }
     this.renderMapMarkers = this.renderMapMarkers.bind(this)
     this.onRegionChange = this.onRegionChange.bind(this)
   }
-
-  componentWillReceiveProps (newProps) {
-    /* ***********************************************************
-    * STEP 3
-    * If you wish to recenter the map on new locations any time the
-    * Redux props change, do something like this:
-    *************************************************************/
-    // this.setState({
-    //   region: calculateRegion(newProps.locations, { latPadding: 0.1, longPadding: 0.1 })
-    // })
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
   }
 
-  onRegionChange (newRegion) {
-    /* ***********************************************************
-    * STEP 4
-    * If you wish to fetch new locations when the user changes the
-    * currently visible region, do something like this:
-    *************************************************************/
-    // const searchRegion = {
-    //   ne_lat: newRegion.latitude + newRegion.latitudeDelta,
-    //   ne_long: newRegion.longitude + newRegion.longitudeDelta,
-    //   sw_lat: newRegion.latitude - newRegion.latitudeDelta,
-    //   sw_long: newRegion.longitude - newRegion.longitudeDelta
-    // }
-    // Fetch new data...
-  }
 
+
+  onRegionChange ({latitude, longitude, latitudeDelta, longitudeDelta}) {
+    this.setState({
+      dropPoint: {latitude, longitude},
+      region: {latitude, longitude, latitudeDelta, longitudeDelta}
+    })
+  }
   calloutPress (location) {
     /* ***********************************************************
     * STEP 5
@@ -91,31 +122,42 @@ class MapviewExample extends React.Component {
     * Customize the appearance and location of the map marker.
     * Customize the callout in ../Components/MapCallout.js
     *************************************************************/
-
+    if (!location) return <View />;
     return (
       <MapView.Marker key={location.title} coordinate={{latitude: location.latitude, longitude: location.longitude}}>
-        <MapCallout location={location} onPress={this.calloutPress} />
       </MapView.Marker>
     )
   }
 
   render () {
     return (
-      <View style={Styles.mainContainer}>
-        
-          <MapView
+      <View style={Styles.container}>
+        <MapView
             style={Styles.map}
-            initialRegion={this.state.region}
+            region={this.state.region}
             onRegionChangeComplete={this.onRegionChange}
             showsUserLocation={this.state.showUserLocation}
+            zoomEnabled={false}
+            rotateEnabled={false}
+            pitchEnabled={false}
           >
-            {this.state.locations.map((location) => this.renderMapMarkers(location))}
-          </MapView>
+            {this.renderMapMarkers(this.state.dropPoint)}
+        </MapView>
+        <View style={Styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={this.requestHelp}
+            style={[Styles.bubble, Styles.button]}
+          >
+            <Text style={Styles.buttonText}>Request Help</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
 }
-
+//initialRegion={this.state.region}
+// onRegionChangeComplete={this.onRegionChange}
+// {this.state.locations.map((location) => this.renderMapMarkers(location))}
 const mapStateToProps = (state) => {
   return {
     // ...redux state to props here
