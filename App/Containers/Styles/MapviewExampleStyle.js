@@ -5,14 +5,55 @@ export default StyleSheet.create({
   ...ApplicationStyles.screen,
   sectionTitle : ApplicationStyles.sectionTitle,
   container: {
-    flex: 1,
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: Colors.charcoal,
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
     alignItems: 'center',
+  },
+  button: {
+    width: 80,
+    paddingHorizontal: 12,
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
+  bubble: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,1)',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 0,
+  },
+  availability: {
+    flex: 1,
+    width: 100,
+    alignItems: 'center',
+    marginHorizontal: 0,
+    backgroundColor: 'rgba(255,255,255,1)',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 0,
+  },
+  buttonText: {
+    color: Colors.snow,
+  },
+  availablityText: {
+    color: Colors.coal,
+  },
+  availablityContainer: {
+    borderWidth: 1,
+    borderLeftColor: Colors.snow,
+    borderRightColor: Colors.snow,
+    borderBottomColor: Colors.snow,
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    backgroundColor: 'transparent',
   },
   map: {
     // For Android :/
     ...StyleSheet.absoluteFillObject,
-    marginBottom: Metrics.doubleBaseMargin,
   }
 })

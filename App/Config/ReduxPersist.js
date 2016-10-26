@@ -7,7 +7,6 @@ const REDUX_PERSIST = {
   storeConfig: {
     storage: AsyncStorage,
     blacklist: ['login'], // reducer keys that you do NOT want stored to persistence here
-    whitelist: [], // OR put reducer keys that you DO want stored to persistence here (overrides blacklist)
     transforms: [immutablePersistenceTransform]
   }
 }

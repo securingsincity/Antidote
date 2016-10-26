@@ -8,7 +8,8 @@ import LoginScreen from '../Containers/LoginScreen'
 import VerifyPhoneNumberScreen from '../Containers/VerifyPhoneNumberScreen'
 import ResponderWelcomeScreen from '../Containers/ResponderWelcomeScreen'
 import Profile from '../Containers/Profile'
-import MapviewExample from '../Containers/MapviewExample'
+import HelpMap from '../Containers/HelpMap'
+import ResponderMapView from '../Containers/ResponderMapView'
 
 class NavigationRouter extends Component {
   render () {
@@ -21,13 +22,12 @@ class NavigationRouter extends Component {
         </Scene>
         <Scene key='drawer' component={NavigationDrawer} open={false}>
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
-            <Scene key='home' initial component={MapviewExample} title='Antidote' renderLeftButton={NavItems.hamburgerButton}   />
+            <Scene key='responderHome' initial component={ResponderMapView} title='Antidote' renderLeftButton={NavItems.hamburgerButton}   />
             <Scene key='profile' component={Profile} title='Profile' renderLeftButton={NavItems.hamburgerButton}  />
-            <Scene key='settings' component={Profile} title='Settings' renderLeftButton={NavItems.hamburgerButton}  />
           </Scene>
         </Scene>
         <Scene key='needsHelp'>
-          <Scene key='home' initial component={MapviewExample} title='Antidote' renderLeftButton={NavItems.call911}   />
+          <Scene key='home' initial component={HelpMap} title='Antidote' renderLeftButton={NavItems.call911}   />
         </Scene>
       </Router>
     )

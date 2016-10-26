@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Image } from 'react-native'
+import { ScrollView, Image, Alert } from 'react-native'
 import styles from './Styles/DrawerContentStyle'
 import { Images } from '../Themes'
 import DrawerButton from '../Components/DrawerButton'
@@ -22,9 +22,22 @@ class DrawerContent extends Component {
   }
 
 
-  handlePressDevice = () => {
+  handleLogout = () => {
     this.toggleDrawer()
-    NavigationActions.deviceInfo()
+    Alert.alert(
+      'Logging out',
+      'Are you sure you want to log out?',
+      [
+        {text: 'Cancel', onPress: () => {}, style: 'cancel'},
+        {
+          text: 'OK', 
+          onPress: () => {
+            this.props.logout();
+            NavigationActions.login()  
+          }
+        },
+      ]
+    )
   }
 
   render () {
@@ -33,7 +46,7 @@ class DrawerContent extends Component {
         <Image source={Images.logo} style={styles.logo} />
         <DrawerButton text='Home' onPress={this.handlePressComponents} />
         <DrawerButton text='Profile' onPress={this.handleProfile} />
-        <DrawerButton text='Settings' onPress={this.handleProfile} />
+        <DrawerButton text='Logout' onPress={this.handleLogout} />
       </ScrollView>
     )
   }
