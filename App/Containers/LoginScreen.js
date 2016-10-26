@@ -96,7 +96,7 @@ export class LoginScreen extends React.Component {
     return (
       <View contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]}>
         <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
-        <View style={[Styles.form, { borderWidth: 1, borderColor: 'black', borderRadius: 0 }]}>
+        <View style={[Styles.form]}>
           <View style={Styles.row} id='phone-number-input-row'>
             <Text style={Styles.rowLabel}>Phone Number</Text>
             <TextInput

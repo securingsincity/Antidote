@@ -1,5 +1,9 @@
 const colors = {
-  background: '#F2F1F1',
+  background: '#FAFBFF',
+  antidotePurple: '#4A61DE',
+  white: 'white',
+
+
   clear: 'rgba(0,0,0,0)',
   facebook: '#3b5998',
   transparent: 'rgba(0,0,0,0)',

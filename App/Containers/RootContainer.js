@@ -8,7 +8,7 @@ import FCM from 'react-native-fcm';
 // import './Config/PushConfig'
 
 // Styles
-import styles from './Styles/RootContainerStyle'
+import Styles from './Styles/RootContainerStyle'
 
 class RootContainer extends Component {
   componentDidMount () {
@@ -52,8 +52,8 @@ class RootContainer extends Component {
 
   render () {
     return (
-      <View style={styles.applicationView}>
-        <StatusBar barStyle='default' />
+      <View style={Styles.applicationView}>
+        <StatusBar barStyle='default' style={[Styles.statusBar]} />
         <NavigationRouter />
       </View>
     )
