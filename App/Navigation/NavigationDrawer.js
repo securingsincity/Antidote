@@ -4,12 +4,24 @@ import { DefaultRenderer, Actions as NavigationActions } from 'react-native-rout
 import DrawerContent from '../Containers/DrawerContent'
 import { connect } from 'react-redux'
 import Styles from './Styles/NavigationDrawerStyle'
+import ProfileActions from '../Redux/ProfileRedux'
 
 /* *******************
 * Documentation: https://github.com/root-two/react-native-drawer
 ********************/
 
 class NavigationDrawer extends Component {
+  
+  componentWillReceiveProps (newProps) {
+    this.forceUpdate()
+    const alreadyLoggedIn = newProps.loggedInUser
+
+    if (!alreadyLoggedIn) {
+      NavigationActions.root();
+    }
+    
+  }
+
   render () {
     const state = this.props.navigationState
     const children = state.children
@@ -20,7 +32,7 @@ class NavigationDrawer extends Component {
         open={state.open}
         onOpen={() => NavigationActions.refresh({key: state.key, open: true})}
         onClose={() => NavigationActions.refresh({key: state.key, open: false})}
-        content={<DrawerContent />}
+        content={<DrawerContent  logout={this.props.logout} />}
         styles={Styles}
         tapToClose
         openDrawerOffset={0.2}
@@ -42,11 +54,13 @@ NavigationDrawer.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    loggedInUser: state.profile.phoneNumber
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    logout: () => dispatch(ProfileActions.logout())
   }
 }
 

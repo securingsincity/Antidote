@@ -24,7 +24,6 @@ class NavigationRouter extends Component {
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
             <Scene key='responderHome' initial component={ResponderMapView} title='Antidote' renderLeftButton={NavItems.hamburgerButton}   />
             <Scene key='profile' component={Profile} title='Profile' renderLeftButton={NavItems.hamburgerButton}  />
-            <Scene key='settings' component={Profile} title='Settings' renderLeftButton={NavItems.hamburgerButton}  />
           </Scene>
         </Scene>
         <Scene key='needsHelp'>

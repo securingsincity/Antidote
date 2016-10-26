@@ -30,6 +30,12 @@ export class LoginScreen extends React.Component {
   componentWillReceiveProps (newProps) {
     this.forceUpdate()
     const loginComplete = this.state.isAttemptingLogin && !newProps.fetching && !newProps.error
+    
+    const alreadyLoggedIn = newProps.loggedInUser
+
+    if (alreadyLoggedIn) {
+      NavigationActions.drawer();
+    }
     if (loginComplete) {
       NavigationActions.verify()
     }
@@ -82,9 +88,11 @@ export class LoginScreen extends React.Component {
   }
   render () {
     const { phoneNumber } = this.state
-    const { fetching, error } = this.props
+    const { fetching, error,loggedInUser } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
+
+
     return (
       <View contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]}>
         <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
@@ -132,7 +140,8 @@ LoginScreen.propTypes = {
 const mapStateToProps = state => {
   return {
     fetching: state.login.fetching,
-    error: state.login.error
+    error: state.login.error,
+    loggedInUser: state.profile.phoneNumber
   }
 }
 
