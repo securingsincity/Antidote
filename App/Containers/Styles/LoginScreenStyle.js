@@ -9,9 +9,11 @@ export default StyleSheet.create({
   form: {
     backgroundColor: Colors.snow,
     margin: Metrics.baseMargin,
-    borderRadius: 4,
     marginLeft: 20,
     marginRight: 20,
+    borderWidth: 1, 
+    borderColor: Colors.antidotePurple, 
+    borderRadius: 0
   },
   row: {
     paddingVertical: Metrics.doubleBaseMargin,
@@ -37,24 +39,28 @@ export default StyleSheet.create({
   loginButton: {
     flex: 1,
     borderRightWidth: 1,
-    borderColor: Colors.charcoal,
-    backgroundColor: 'lightgray',
-    paddingTop: 20,
-    paddingBottom: 20,
+    borderColor: Colors.white,
+    backgroundColor: Colors.antidotePurple,
+    paddingTop: 18,
+    paddingBottom: 18,
   },
   loginButtonRight: {
     flex: 1,
     borderRightWidth: 0,
-    backgroundColor: 'lightgray',
-    paddingTop: 20,
-    paddingBottom: 20,
+    backgroundColor: Colors.antidotePurple,
+    paddingTop: 18,
+    paddingBottom: 18,
   },
   loginText: {
     textAlign: 'center',
-    color: Colors.silver
+    color: Colors.silver,
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   topLogo: {
     alignSelf: 'center',
-    resizeMode: 'contain'
+    resizeMode: 'contain',
+    marginTop: 50,
+    marginBottom: 50,
   },
 })
