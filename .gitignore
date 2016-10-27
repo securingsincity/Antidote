@@ -43,3 +43,4 @@ android/keystores/debug.keystore
 google-services.json
 .vscode/
 ios/GoogleService-Info.plist
+android/app/src/main/AndroidManifest.xml

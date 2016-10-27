@@ -20,7 +20,7 @@ class NavigationRouter extends Component {
           <Scene key='verify' component={VerifyPhoneNumberScreen} title='Verify Your Phone Number' />
           <Scene key='welcome' component={ResponderWelcomeScreen} title='Welcome' />
         </Scene>
-        <Scene key='drawer' component={NavigationDrawer} open={false}>
+        <Scene key='responder' component={NavigationDrawer} open={false}>
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
             <Scene key='responderHome' initial component={ResponderMapView} title='Antidote' renderLeftButton={NavItems.hamburgerButton}   />
             <Scene key='profile' component={Profile} title='Profile' renderLeftButton={NavItems.hamburgerButton}  />

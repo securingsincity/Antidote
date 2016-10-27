@@ -9,8 +9,9 @@ export function * verify ({ phoneNumber, verificationCode }) {
   } else {
     var result = yield call(login, phoneNumber, verificationCode)
     if (result.ok && result.data.success) {
-      return yield put(VerifyPhoneNumberActions.verifySuccess(phoneNumber, result.data.access_token, result.data.user))
+      yield put(VerifyPhoneNumberActions.verifySuccess(phoneNumber, result.data.access_token, result.data.user))
+    } else {
+      yield put(VerifyPhoneNumberActions.verifyFailure('WRONG'))
     }
-    return yield put(VerifyPhoneNumberActions.verifyFailure('WRONG'))
   }
 }

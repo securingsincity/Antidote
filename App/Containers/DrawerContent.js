@@ -33,7 +33,7 @@ class DrawerContent extends Component {
           text: 'OK', 
           onPress: () => {
             this.props.logout();
-            NavigationActions.login()  
+            NavigationActions.login({type: 'reset'})  
           }
         },
       ]

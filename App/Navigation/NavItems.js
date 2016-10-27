@@ -7,7 +7,7 @@ import { Colors, Metrics } from '../Themes'
 
 const openDrawer = () => {
   NavigationActions.refresh({
-    key: 'drawer',
+    key: 'responder',
     open: true
   })
 }

@@ -94,7 +94,7 @@ class VerifyPhoneNumberScreen extends Component {
             <TextInput
               ref='verificationCode'
               style={textInputStyle}
-              value={verificationCode}
+              defaultValue={verificationCode}
               editable={editable}
               keyboardType='phone-pad'
               returnKeyType='next'

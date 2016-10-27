@@ -17,7 +17,7 @@ class NavigationDrawer extends Component {
     const alreadyLoggedIn = newProps.loggedInUser
 
     if (!alreadyLoggedIn) {
-      NavigationActions.root();
+      NavigationActions.root({type: 'reset'});
     }
     
   }

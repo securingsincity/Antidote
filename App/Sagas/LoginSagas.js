@@ -13,7 +13,8 @@ export function * login ({ phoneNumber }) {
     var result = yield call(signUp, phoneNumber)
     if (result.ok) {
       yield put(LoginActions.loginSuccess(phoneNumber))
+    } else {
+      yield put(LoginActions.loginFailure(errorMsg))
     }
-    yield put(LoginActions.loginFailure(errorMsg))
   }
 }

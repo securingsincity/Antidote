@@ -25,7 +25,7 @@ class WelcomeScreen extends Component {
   }
 
   handlePressSetupProfile() {
-    NavigationActions.drawer() 
+    NavigationActions.responder({type: 'reset'}) 
   }
 
   sideBox(defaultWidth) {

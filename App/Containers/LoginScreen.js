@@ -34,7 +34,7 @@ export class LoginScreen extends React.Component {
     const alreadyLoggedIn = newProps.loggedInUser
 
     if (alreadyLoggedIn) {
-      NavigationActions.drawer();
+      NavigationActions.responder({type: 'reset'});
     }
     if (loginComplete) {
       NavigationActions.verify()
