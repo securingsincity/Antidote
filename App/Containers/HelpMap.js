@@ -5,7 +5,7 @@ import MapView from 'react-native-maps'
 import { calculateRegion } from '../Lib/MapHelpers'
 import MapCallout from '../Components/MapCallout'
 import Styles from './Styles/MapviewExampleStyle'
-
+import { Actions as NavigationActions } from 'react-native-router-flux'
 /* ***********************************************************
 * IMPORTANT!!! Before you get started, if you are going to support Android,
 * PLEASE generate your own API key and add it to android/app/src/main/AndroidManifest.xml
@@ -94,6 +94,7 @@ class MapviewExample extends React.Component {
     }
     this.renderMapMarkers = this.renderMapMarkers.bind(this)
     this.onRegionChange = this.onRegionChange.bind(this)
+    this.requestHelp = this.requestHelp.bind(this)
   }
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
@@ -127,6 +128,9 @@ class MapviewExample extends React.Component {
       <MapView.Marker key={location.title} coordinate={{latitude: location.latitude, longitude: location.longitude}}>
       </MapView.Marker>
     )
+  }
+  requestHelp () {
+    NavigationActions.responderOnMyWay();
   }
 
   render () {

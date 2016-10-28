@@ -1,6 +1,6 @@
 import apisauce from 'apisauce'
 import { coercePhoneNumber } from './utils'
-const baseURL = 'http://localhost:9002'
+const baseURL = 'https://antidote-staging.herokuapp.com/'
 const timeout = 10 * 1000
 
 const api = apisauce.create({

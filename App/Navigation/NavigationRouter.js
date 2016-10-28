@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Scene, Router } from 'react-native-router-flux'
+import { Scene, Router, ActionConst } from 'react-native-router-flux'
 import Styles from './Styles/NavigationContainerStyle'
 import NavigationDrawer from './NavigationDrawer'
 import NavItems from './NavItems'
@@ -10,7 +10,8 @@ import ResponderWelcomeScreen from '../Containers/ResponderWelcomeScreen'
 import Profile from '../Containers/Profile'
 import HelpMap from '../Containers/HelpMap'
 import ResponderMapView from '../Containers/ResponderMapView'
-
+import RequestHelp  from '../Containers/RequestHelp'
+import ResponderOnMyWay  from '../Containers/ResponderOnMyWay'
 class NavigationRouter extends Component {
   render () {
     return (
@@ -24,10 +25,14 @@ class NavigationRouter extends Component {
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
             <Scene key='responderHome' initial component={ResponderMapView} title='Antidote' renderLeftButton={NavItems.hamburgerButton}   />
             <Scene key='profile' component={Profile} title='Profile' renderLeftButton={NavItems.hamburgerButton}  />
+            <Scene key='responderRequestHelp' component={RequestHelp} role="responder" title='Antidote' renderLeftButton={NavItems.call911}   type={ActionConst.REPLACE} />
           </Scene>
         </Scene>
         <Scene key='needsHelp'>
           <Scene key='home' initial component={HelpMap} title='Antidote' renderLeftButton={NavItems.call911}   />
+          <Scene key='requestHelp'  component={RequestHelp}  role="needsHelp" title='Antidote' renderLeftButton={NavItems.call911} type={ActionConst.REPLACE}  />
+          <Scene key='responderOnMyWay'  component={ResponderOnMyWay}  role="responder" title='Antidote' renderLeftButton={NavItems.call911}   type={ActionConst.REPLACE} />
+          
         </Scene>
       </Router>
     )
