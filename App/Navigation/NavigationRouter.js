@@ -15,11 +15,11 @@ import ResponderOnMyWay  from '../Containers/ResponderOnMyWay'
 class NavigationRouter extends Component {
   render () {
     return (
-      <Router>
+      <Router navigationBarStyle={[Styles.navBar]}>
         <Scene key="root">
-          <Scene initial key='login' component={LoginScreen} title='Antidote' subTitle='Login'  />
-          <Scene key='verify' component={VerifyPhoneNumberScreen} title='Verify Your Phone Number' />
-          <Scene key='welcome' component={ResponderWelcomeScreen} title='Welcome' />
+          <Scene initial hideNavBar key='login' component={LoginScreen} title='Antidote' subTitle='Login'  />
+          <Scene hideNavBar key='verify' component={VerifyPhoneNumberScreen} title='Verify Your Phone Number' />
+          <Scene key='welcome' component={ResponderWelcomeScreen} title='Antidote' titleStyle={Styles.title} />
         </Scene>
         <Scene key='responder' component={NavigationDrawer} open={false}>
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
