@@ -39,7 +39,9 @@ class WelcomeScreen extends Component {
         <HeaderBar title={"Welcome"} screenWidth={screenWidth}/>
         
         <View style={Styles.row}>
-          <Text style={Styles.row}>Welcome to Antidote, Thanks for signing up.  Please set up your profile so you can begin helping</Text>
+          <Text style={[Styles.row, {fontWeight: 'bold', fontSize: 18}]}>Welcome to Antidote,</Text>
+          <Text style={Styles.row}>We appreciate your willingness to be a responder. This is a serious job, so don't take it lightly. You will literally be saving lives.</Text>
+          <Text style={Styles.row}>Please set up some basic details in your account.</Text>
         </View>
 
         <View style={[Styles.loginRow]}>

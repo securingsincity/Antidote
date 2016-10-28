@@ -6,13 +6,13 @@ export default StyleSheet.create({
     marginLeft: Metrics.baseMargin,
     backgroundColor: Colors.transparent,
     width: Metrics.icons.logo,
-    color: Colors.charcoal
+    color: Colors.white
   },
   navButtonLeftLong: {
     marginLeft: Metrics.baseMargin,
     backgroundColor: Colors.transparent,
     width: 200,
     fontSize: 16,
-    color: Colors.charcoal
+    color: Colors.white
   }
 })

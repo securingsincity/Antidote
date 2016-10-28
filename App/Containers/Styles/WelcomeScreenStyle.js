@@ -36,14 +36,17 @@ export default StyleSheet.create({
   },
   loginButton: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: Colors.charcoal,
-    backgroundColor: Colors.panther,
-    padding: 6
+    borderRightWidth: 1,
+    borderColor: Colors.white,
+    backgroundColor: Colors.antidotePurple,
+    paddingTop: 18,
+    paddingBottom: 18,
+  
   },
   loginText: {
     textAlign: 'center',
-    color: Colors.silver
+    color: Colors.white,
+    fontWeight: 'bold'
   },
   topLogo: {
     alignSelf: 'center',

@@ -4,14 +4,17 @@ import {
   Text,
 } from 'react-native'
 import SideBox from './SideBox'
+import Styles from './Styles/HeaderBarStyle'
+
+
 class HeaderBar extends Component {
     render() {
         const screenWidthIn12 = (this.props.screenWidth/12)
         return  ( 
-        <View style={{flexDirection: 'row', alignItems: 'center', paddingTop: 70}}>
+        <View style={[Styles.container]}>
             <SideBox width={screenWidthIn12*5} />
             <View style={{width: screenWidthIn12*2}}>
-            <Text style={{textAlign: 'center', fontWeight: '600'}}>{this.props.title}</Text><View />
+                <Text style={[Styles.text]}>{this.props.title}</Text><View />
             </View>
             <SideBox width={screenWidthIn12*5} /> 
         </View>
