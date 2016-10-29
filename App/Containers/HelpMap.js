@@ -6,6 +6,7 @@ import { calculateRegion } from '../Lib/MapHelpers'
 import MapCallout from '../Components/MapCallout'
 import Styles from './Styles/MapviewExampleStyle'
 import { Actions as NavigationActions } from 'react-native-router-flux'
+import HelpActions from '../Redux/HelpRedux'
 /* ***********************************************************
 * IMPORTANT!!! Before you get started, if you are going to support Android,
 * PLEASE generate your own API key and add it to android/app/src/main/AndroidManifest.xml
@@ -27,8 +28,8 @@ class MapviewExample extends React.Component {
     region: {
       latitude: 0,
       longitude: 0,
-      longitudeDelta : 0.1,
-      latitudeDelta : 0.1
+      longitudeDelta : 0.01,
+      latitudeDelta : 0.01
     },
     dropPoint: {},
     lastPosition: 'unknown',
@@ -41,9 +42,9 @@ class MapviewExample extends React.Component {
       (position) => {
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
-        console.log('position', position.coords)
-        const longitudeDelta = 0.1;
-        const latitudeDelta = 0.1;
+        
+        const longitudeDelta = 0.2;
+        const latitudeDelta = 0.2;
         this.setState({
           initialPosition: {
             latitude,
@@ -68,9 +69,11 @@ class MapviewExample extends React.Component {
     this.watchID = navigator.geolocation.watchPosition((position) => {
       const latitude = position.coords.latitude
       const longitude = position.coords.longitude
-      const longitudeDelta = 0.1;
-      const latitudeDelta = 0.1;
-      console.log('position', position.coords)
+      const longitudeDelta = 0.01;
+      const latitudeDelta = 0.01;
+      if (latitude !== this.props.latitude && longitude !== this.props.longitude) {
+        this.props.getAddress(latitude, longitude);
+      } 
       this.setState({
         initialPosition: {
           latitude,
@@ -103,6 +106,7 @@ class MapviewExample extends React.Component {
 
 
   onRegionChange ({latitude, longitude, latitudeDelta, longitudeDelta}) {
+    this.props.getAddress(latitude, longitude);
     this.setState({
       dropPoint: {latitude, longitude},
       region: {latitude, longitude, latitudeDelta, longitudeDelta}
@@ -130,7 +134,7 @@ class MapviewExample extends React.Component {
     )
   }
   requestHelp () {
-    NavigationActions.responderOnMyWay();
+    NavigationActions.requestHelp();
   }
 
   render () {
@@ -141,13 +145,23 @@ class MapviewExample extends React.Component {
             region={this.state.region}
             onRegionChangeComplete={this.onRegionChange}
             showsUserLocation={this.state.showUserLocation}
-            zoomEnabled={false}
+            zoomEnabled={true}
             rotateEnabled={false}
             pitchEnabled={false}
           >
             {this.renderMapMarkers(this.state.dropPoint)}
         </MapView>
+        <View style={{
+            borderWidth:1,
+            borderColor: "#000000",
+            padding: 20,
+            backgroundColor: "#FFFFFF",
+            width: 200
+          }}>
+            <Text style={{color: "#000000"}}>{this.props.address}</Text>
+          </View>
         <View style={Styles.buttonContainer}>
+
           <TouchableOpacity
             onPress={this.requestHelp}
             style={[Styles.bubble, Styles.button]}
@@ -159,13 +173,18 @@ class MapviewExample extends React.Component {
     )
   }
 }
-//initialRegion={this.state.region}
-// onRegionChangeComplete={this.onRegionChange}
-// {this.state.locations.map((location) => this.renderMapMarkers(location))}
-const mapStateToProps = (state) => {
+
+const mapStateToProps = state => {
   return {
-    // ...redux state to props here
+   address: state.help.address,
+   lat: state.help.lat,
+   long: state.help.long,
   }
 }
 
-export default connect(mapStateToProps)(MapviewExample)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAddress: (lat,long) =>   dispatch(HelpActions.locationRequest(lat,long))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(MapviewExample)

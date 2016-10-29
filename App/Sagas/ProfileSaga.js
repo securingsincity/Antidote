@@ -1,17 +1,30 @@
 import { call, put } from 'redux-saga/effects'
-import VerifyPhoneNumberActions from '../Redux/ProfileRedux'
-import { login } from '../Services/antidoteServer'
+import ProfileActions from '../Redux/ProfileRedux'
+import { login, updateProfile } from '../Services/antidoteServer'
 // attempts to verify account info
 export function * verify ({ phoneNumber, verificationCode }) {
   if (verificationCode === '') {
     // dispatch failure
-    yield put(VerifyPhoneNumberActions.verifyFailure('Need a valid code'))
+    yield put(ProfileActions.verifyFailure('Need a valid code'))
   } else {
     var result = yield call(login, phoneNumber, verificationCode)
     if (result.ok && result.data.success) {
-      yield put(VerifyPhoneNumberActions.verifySuccess(phoneNumber, result.data.access_token, result.data.user))
+      yield put(ProfileActions.verifySuccess(phoneNumber, result.data.access_token, result.data.user))
     } else {
-      yield put(VerifyPhoneNumberActions.verifyFailure('WRONG'))
+      yield put(ProfileActions.verifyFailure('WRONG'))
+    }
+  }
+}
+
+export function * updateProfileSaga({ user }) {
+  if (!user.phoneNumber) {
+    yield put(ProfileActions.updateProfileFailure('Unable to update user'))
+  } else {
+    var result = yield call(updateProfile, user);
+    if (result.ok && result.data.success) {
+      yield put(ProfileActions.updateProfileSucess(user))
+    } else {
+      yield put(ProfileActions.updateProfileFailure('Unable to update user'));
     }
   }
 }

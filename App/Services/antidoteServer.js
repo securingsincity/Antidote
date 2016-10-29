@@ -16,7 +16,16 @@ export default function (phoneNumber) {
   return api.post('/users', { phoneNumber: coercedNumber })
 }
 
+export const updateProfile = (user) => {
+  return api.post(`/users/${user.phoneNumber}`, user)
+}
+
 export const login = (phoneNumber, verificationCode) => {
   return api.post('/login', {phoneNumber: `+1${phoneNumber}`, verificationCode})
+}
+
+
+export const getAddress = (lat, long) => {
+  return api.post('/alerts/geocode', {lat, long})
 }
 

@@ -8,6 +8,7 @@ import Styles from './Styles/MapviewExampleStyle'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Colors, Metrics } from '../Themes'
 import { Actions as NavigationActions } from 'react-native-router-flux'
+import HelpActions from '../Redux/HelpRedux'
 /* ***********************************************************
 * IMPORTANT!!! Before you get started, if you are going to support Android,
 * PLEASE generate your own API key and add it to android/app/src/main/AndroidManifest.xml
@@ -29,8 +30,8 @@ class MapviewExample extends React.Component {
     region: {
       latitude: 0,
       longitude: 0,
-      longitudeDelta : 0.1,
-      latitudeDelta : 0.1
+      longitudeDelta : 0.02,
+      latitudeDelta : 0.02
     },
     dropPoint: {},
     lastPosition: 'unknown',
@@ -43,9 +44,8 @@ class MapviewExample extends React.Component {
       (position) => {
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
-        console.log('position', position.coords)
-        const longitudeDelta = 0.1;
-        const latitudeDelta = 0.1;
+        const longitudeDelta = 0.02;
+        const latitudeDelta = 0.02;
         this.setState({
           initialPosition: {
             latitude,
@@ -69,9 +69,12 @@ class MapviewExample extends React.Component {
     this.watchID = navigator.geolocation.watchPosition((position) => {
       const latitude = position.coords.latitude
       const longitude = position.coords.longitude
-      const longitudeDelta = 0.1;
-      const latitudeDelta = 0.1;
-      console.log('position', position.coords)
+      const longitudeDelta = 0.02;
+      const latitudeDelta = 0.02;
+      if (latitude !== this.props.latitude && longitude !== this.props.longitude) {
+        this.props.getAddress(latitude, longitude);
+        this.props.setProfileAddress(latitude, longitude)
+      } 
       this.setState({
         initialPosition: {
           latitude,
@@ -104,6 +107,7 @@ class MapviewExample extends React.Component {
 
 
   onRegionChange ({latitude, longitude, latitudeDelta, longitudeDelta}) {
+    this.props.getAddress(latitude, longitude);
     this.setState({
       dropPoint: {latitude, longitude},
       region: {latitude, longitude, latitudeDelta, longitudeDelta}
@@ -135,6 +139,10 @@ class MapviewExample extends React.Component {
   requestHelp () {
     NavigationActions.responderRequestHelp();
   }
+
+  setAvailability () {
+    NavigationActions.responderCurrentlyAvailable();
+  }
   render () { 
     return (
       <View style={Styles.container}>
@@ -149,6 +157,16 @@ class MapviewExample extends React.Component {
           >
             {this.renderMapMarkers(this.state.dropPoint)}
         </MapView>
+        <View style={{
+            borderWidth:1,
+            borderColor: "#000000",
+            padding: 20,
+            backgroundColor: "#FFFFFF",
+            width: 200,
+            justifyContent: 'flex-start'
+          }}>
+            <Text style={{color: "#000000"}}>{this.props.address}</Text>
+          </View>
         <View style={Styles.buttonContainer}>
           <TouchableOpacity
             onPress={this.requestHelp}
@@ -159,7 +177,7 @@ class MapviewExample extends React.Component {
         </View>
         <View style={Styles.availablityContainer}>
           <TouchableOpacity
-            onPress={this.requestHelp}
+            onPress={this.setAvailability}
             style={Styles.availability}
           >
             
@@ -177,8 +195,17 @@ class MapviewExample extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    // ...redux state to props here
+    address: state.help.address,
+    lat: state.help.lat,
+    long: state.help.long
   }
 }
 
-export default connect(mapStateToProps)(MapviewExample)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAddress: (lat,long) =>   dispatch(HelpActions.locationRequest(lat,long)),
+    setProfileAddress: (lat,long) => {console.log(lat,long)}
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(MapviewExample)
+

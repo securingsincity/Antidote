@@ -31,8 +31,6 @@ class RequestHelp extends Component {
     }
     render() {
         const screenWidth = Metrics.screenWidth;
-        const address1 = "53 Winchester St.";
-        const address2 = "Boston, MA"
         return (
             <View contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: Metrics.screenHeight, width: Metrics.screenWidth}]}>
                 <HeaderBar title={"Alert"} screenWidth={screenWidth}/>
@@ -52,12 +50,7 @@ class RequestHelp extends Component {
                         fontSize: 18,
                         fontWeight: "bold",
                         textAlign: "left"
-                    }}>{address1}</Text>
-                    <Text style={{
-                        fontSize: 18,
-                        fontWeight: "bold",
-                        textAlign: "left"
-                    }}>{address2}</Text>
+                    }}>{this.props.address}</Text>
                 </View>
                 <View style={{
                     flex: 1,
@@ -78,12 +71,15 @@ class RequestHelp extends Component {
     }
 }
 
-const mapDispatchToProps = (state, ownProps) => {
+const mapStateToProps = state => {
     return {
+        address: state.help.address,
+        lat: state.help.lat,
+        long: state.help.long,
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const  mapDispatchToProps = (dispatch) => {
     return {
     }
 }

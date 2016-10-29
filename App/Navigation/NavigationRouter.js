@@ -12,6 +12,7 @@ import HelpMap from '../Containers/HelpMap'
 import ResponderMapView from '../Containers/ResponderMapView'
 import RequestHelp  from '../Containers/RequestHelp'
 import ResponderOnMyWay  from '../Containers/ResponderOnMyWay'
+import ResponderCurrentlyAvailable from '../Containers/ResponderCurrentlyAvailable'
 class NavigationRouter extends Component {
   render () {
     return (
@@ -21,17 +22,18 @@ class NavigationRouter extends Component {
           <Scene key='verify' component={VerifyPhoneNumberScreen} title='Verify Your Phone Number' />
           <Scene key='welcome' component={ResponderWelcomeScreen} title='Welcome' />
         </Scene>
+        <Scene key='responderOnMyWay'  component={ResponderOnMyWay}  role="responder" title='Antidote' renderLeftButton={NavItems.call911}   type={ActionConst.REPLACE} />
         <Scene key='responder' component={NavigationDrawer} open={false}>
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
             <Scene key='responderHome' initial component={ResponderMapView} title='Antidote' renderLeftButton={NavItems.hamburgerButton}   />
             <Scene key='profile' component={Profile} title='Profile' renderLeftButton={NavItems.hamburgerButton}  />
             <Scene key='responderRequestHelp' component={RequestHelp} role="responder" title='Antidote' renderLeftButton={NavItems.call911}   type={ActionConst.REPLACE} />
+            <Scene key='responderCurrentlyAvailable' component={ResponderCurrentlyAvailable} role="responder" title='Antidote' renderLeftButton={NavItems.call911}   type={ActionConst.REPLACE} />
           </Scene>
         </Scene>
         <Scene key='needsHelp'>
           <Scene key='home' initial component={HelpMap} title='Antidote' renderLeftButton={NavItems.call911}   />
           <Scene key='requestHelp'  component={RequestHelp}  role="needsHelp" title='Antidote' renderLeftButton={NavItems.call911} type={ActionConst.REPLACE}  />
-          <Scene key='responderOnMyWay'  component={ResponderOnMyWay}  role="responder" title='Antidote' renderLeftButton={NavItems.call911}   type={ActionConst.REPLACE} />
           
         </Scene>
       </Router>

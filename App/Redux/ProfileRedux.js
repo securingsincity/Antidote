@@ -7,10 +7,13 @@ const { Types, Creators } = createActions({
   verifyRequest: ['phoneNumber', 'verificationCode'],
   verifySuccess: ['phoneNumber', 'token', 'user'],
   verifyFailure: ['error'],
+  updateProfileRequest: ['user'],
+  updateProfileSuccess: ['user'],
+  updateProfileFailure: ['error'],
   logout: null,
 })
 
-export const VerifyTypes = Types
+export const ProfileTypes = Types
 export default Creators
 
 /* ------------- Initial State ------------- */
@@ -36,6 +39,8 @@ export const failure = (state, { error }) =>
 
 export const empty = () => INITIAL_STATE
 
+
+export const updateProfileSuccess =(state, {user}) => state.merge({user, fetching: false, error: null})
 // we've logged out
 
 /* ------------- Hookup Reducers To Types ------------- */
@@ -44,6 +49,9 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.VERIFY_REQUEST]: request,
   [Types.VERIFY_SUCCESS]: success,
   [Types.VERIFY_FAILURE]: failure,
+  [Types.UPDATE_PROFILE_REQUEST]: request,
+  [Types.UPDATE_PROFILE_SUCCESS]: success,
+  [Types.UPDATE_PROFILE_FAILURE]: failure,
   [Types.LOGOUT]: empty,
 })
 
