@@ -5,7 +5,9 @@ export default {
     padding: 20,
     backgroundColor: Colors.coal
   },
-  logo: {
-    alignSelf: 'center'
+  text: {
+    color: Colors.antidotePurple,
+    fontWeight: 'bold',
+    fontSize: 26,
   }
 }
