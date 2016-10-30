@@ -14,15 +14,18 @@ import Styles from './Styles/LoginScreenStyle'
 import {Images, Metrics} from '../Themes'
 // import ProfileActions from '../Redux/ProfileRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
+import ProfileActions from '../Redux/ProfileRedux'
 
 export class Profile extends React.Component {
 
   constructor (props) {
     super(props)
     this.state = {
-      phoneNumber: '',
+      licensePlate: '',
       name: '',
       visibleHeight: Metrics.screenHeight,
+      licensePlateEditMode: false,
+      nameEditMode: false,
       topLogo: { width: Metrics.screenWidth }
     }
     this.isAttemptingLogin = false
@@ -30,10 +33,6 @@ export class Profile extends React.Component {
 
   componentWillReceiveProps (newProps) {
     this.forceUpdate()
-    const loginComplete = this.isAttemptingLogin && !newProps.fetching && !newProps.error
-    if (loginComplete) {
-      NavigationActions.verify()
-    }
   }
 
   componentWillMount () {
@@ -67,23 +66,34 @@ export class Profile extends React.Component {
     })
   }
 
-  handlePressLogin = () => {
-    const { phoneNumber } = this.state
-    this.isAttemptingLogin = true
-    // attempt a login - a saga is listening to pick it up from here.
-    this.props.updateProfile(phoneNumber)
+  updateUser = () => {
+    const { licensePlate, name, nameEditMode, licensePlateEditMode } = this.state
+    let updatedUser = this.props.profile.user;
+    if (nameEditMode) {
+      updatedUser = updatedUser.merge({name});
+    }
+    if (licensePlateEditMode) {
+      updatedUser = updatedUser.merge({licensePlate});
+    }
+    this.props.updateProfile(updatedUser)
   }
 
-  handleChangePhonenumber = phoneNumber => {
-    this.setState({ phoneNumber })
+  handleChangeLicensePlate = licensePlate => {
+    this.setState({ licensePlate,licensePlateEditMode: true })
   }
 
   handleChangeName = name => {
-    this.setState({ name })
+    this.setState({ name, nameEditMode: true })
   }
 
   render () {
-    const { phoneNumber, name } = this.state
+    let { name, licensePlate, nameEditMode, licensePlateEditMode} = this.state
+    if (!name && !nameEditMode) {
+      name = this.props.name
+    }
+    if (!licensePlate && !licensePlateEditMode) {
+      licensePlate = this.props.licensePlate
+    }
     const { fetching } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
@@ -98,8 +108,8 @@ export class Profile extends React.Component {
               ref='name'
               style={textInputStyle}
               value={name}
+              defaultValue={this.props.name}
               editable={editable}
-              keyboardType='phone-pad'
               returnKeyType='next'r
               onChangeText={this.handleChangeName}
               underlineColorAndroid='transparent'
@@ -108,17 +118,16 @@ export class Profile extends React.Component {
             <TextInput
               ref='phoneNumber'
               style={textInputStyle}
-              value={phoneNumber}
+              value={licensePlate}
               editable={editable}
-              keyboardType='phone-pad'
               returnKeyType='next'
-              onChangeText={this.handleChangePhonenumber}
+              onChangeText={this.handleChangeLicensePlate}
               underlineColorAndroid='transparent'
-              placeholder={'555-555-1111'} />
+              placeholder={'GFB-1212'} />
           </View>
 
           <View style={[Styles.loginRow]}>
-            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressLogin}>
+            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.updateUser}>
               <View style={Styles.loginButton}>
                 <Text style={Styles.loginText}>Save</Text>
               </View>
@@ -141,13 +150,18 @@ Profile.propTypes = {
 const mapStateToProps = state => {
   return {
     fetching: state.profile.fetching,
-    error: state.profile.error
+    error: state.profile.error,
+    profile: state.profile,
+    name: state.profile.user.name,
+    make: state.profile.user.make,
+    model: state.profile.user.model,
+    licensePlate: state.profile.user.licensePlate
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateProfile: (phoneNumber, name) => dispatch(ProfileActions.profileRequest(phoneNumber, name))
+    updateProfile: (user) => dispatch(ProfileActions.updateProfileRequest(user))
   }
 }
 

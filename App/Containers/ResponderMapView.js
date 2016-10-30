@@ -182,8 +182,8 @@ class MapviewExample extends React.Component {
           >
             
             <Text style={Styles.availablityText}>
-              <Icon name='circle' size={Metrics.icons.tiny} color={Colors.green} />
-              {"    I'm Available Right Now       ".toUpperCase()}
+              <Icon name='circle' size={Metrics.icons.tiny} color={this.props.user.available ? Colors.green : Colors.ember} />
+              {this.props.user.available ? ("    I'm Available Right Now       ".toUpperCase()) : ("    I'm Not Available Right Now       ".toUpperCase()) }
               <Icon name='angle-right' size={Metrics.icons.tiny} color={Colors.coal} />
             </Text>
           </TouchableOpacity>
@@ -197,7 +197,9 @@ const mapStateToProps = (state) => {
   return {
     address: state.help.address,
     lat: state.help.lat,
-    long: state.help.long
+    long: state.help.long,
+    profile: state.profile,
+    user: state.profile.user,
   }
 }
 

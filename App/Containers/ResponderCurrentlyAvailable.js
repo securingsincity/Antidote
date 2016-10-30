@@ -21,9 +21,18 @@ import { Actions as NavigationActions } from 'react-native-router-flux'
 class ResponderCurrentlyAvailable extends Component {
     constructor (props) {
         super(props);
-        this.cancelRequest = this.cancelRequest.bind(this);
+        this.setAvailable = this.setAvailable.bind(this);
+        this.setUnavailable = this.setUnavailable.bind(this);
     }
-    cancelRequest() {
+    setAvailable() {
+        const user = this.props.profile.user.merge({available: true});
+        this.props.updateProfile(user);
+        NavigationActions.responderHome({type: "reset"});
+    }
+    
+    setUnavailable() {
+        const user = this.props.profile.user.merge({available: false});
+        this.props.updateProfile(user);
         NavigationActions.responderHome({type: "reset"});
     }
     render() {
@@ -41,13 +50,13 @@ class ResponderCurrentlyAvailable extends Component {
                     marginBottom: 20,
                 }}>
                     <TouchableOpacity
-                        onPress={this.cancelRequest}
+                        onPress={this.setAvailable}
                         style={[style.button, style.primaryButton]}
                     >
                         <Text style={[style.buttonText, style.primaryButtonText]}>I CAN CURRENTLY RESPOND</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={this.cancelRequest}
+                        onPress={this.setUnavailable}
                         style={[style.button]}
                     >
                         <Text style={[style.buttonText]}>I'M NOT AVAILABLE RIGHT NOW</Text>
@@ -82,14 +91,15 @@ const style = {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setAvailable: (isAvailable) => {
-            // dispatch(ProfileActions.updateProfileRequest())
+        updateProfile: (user) => {
+            dispatch(ProfileActions.updateProfileRequest(user))
         }
     }
 }
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        profile: state.profile,
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ResponderCurrentlyAvailable)

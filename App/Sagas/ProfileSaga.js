@@ -22,7 +22,7 @@ export function * updateProfileSaga({ user }) {
   } else {
     var result = yield call(updateProfile, user);
     if (result.ok && result.data.success) {
-      yield put(ProfileActions.updateProfileSucess(user))
+      yield put(ProfileActions.updateProfileSuccess(result.data.user))
     } else {
       yield put(ProfileActions.updateProfileFailure('Unable to update user'));
     }

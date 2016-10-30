@@ -50,7 +50,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.VERIFY_SUCCESS]: success,
   [Types.VERIFY_FAILURE]: failure,
   [Types.UPDATE_PROFILE_REQUEST]: request,
-  [Types.UPDATE_PROFILE_SUCCESS]: success,
+  [Types.UPDATE_PROFILE_SUCCESS]: updateProfileSuccess,
   [Types.UPDATE_PROFILE_FAILURE]: failure,
   [Types.LOGOUT]: empty,
 })
