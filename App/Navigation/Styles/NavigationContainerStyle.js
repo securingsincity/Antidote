@@ -5,10 +5,11 @@ export default {
     flex: 1
   },
   navBar: {
-    backgroundColor: Colors.background
+    backgroundColor: Colors.antidotePurple,
   },
   title: {
-    color: Colors.coal
+    color: Colors.white,
+    fontWeight: 'bold'
   },
   leftButton: {
     tintColor: Colors.coal
