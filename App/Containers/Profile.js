@@ -114,9 +114,9 @@ export class Profile extends React.Component {
               onChangeText={this.handleChangeName}
               underlineColorAndroid='transparent'
               placeholder={'John Smith'} />
-            <Text style={Styles.rowLabel}>Phone Number</Text>
+            <Text style={Styles.rowLabel}>License Plate</Text>
             <TextInput
-              ref='phoneNumber'
+              ref='licensePlat'
               style={textInputStyle}
               value={licensePlate}
               editable={editable}

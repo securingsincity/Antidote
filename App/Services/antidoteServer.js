@@ -17,7 +17,10 @@ export default function (phoneNumber) {
 }
 
 export const updateProfile = (user) => {
-  return api.post(`/users/${user.phoneNumber}?accessToken=${user.token}`, user)
+  const phoneNumber = user.phoneNumber.slice(2,user.phoneNumber.length);
+  console.log('address',`/users/${phoneNumber}?accessToken=${user.token}`)
+  console.log('user',user)
+  return api.post(`/users/${phoneNumber}?accessToken=${user.token}`, user)
 }
 
 export const login = (phoneNumber, verificationCode) => {
