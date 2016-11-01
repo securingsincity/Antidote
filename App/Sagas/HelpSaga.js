@@ -12,7 +12,7 @@ export function * addressLookup({lat, long}) {
         if (result.ok && result.data.success) {
             yield put(HelpActions.locationSuccess(result.data.address, lat, long))
         } else {
-            yield put(HelpActions.failur(errorMsg));
+            yield put(HelpActions.failure(errorMsg));
         }
     }
 }

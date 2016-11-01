@@ -40,6 +40,7 @@ export const failure = (state, { error }) =>
 export const empty = () => INITIAL_STATE
 
 
+export const updateProfileRequest =(state, {user}) => state.merge({user, fetching: true, error: null})
 export const updateProfileSuccess =(state, {user}) => state.merge({user, fetching: false, error: null})
 // we've logged out
 
@@ -49,7 +50,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.VERIFY_REQUEST]: request,
   [Types.VERIFY_SUCCESS]: success,
   [Types.VERIFY_FAILURE]: failure,
-  [Types.UPDATE_PROFILE_REQUEST]: request,
+  [Types.UPDATE_PROFILE_REQUEST]: updateProfileRequest,
   [Types.UPDATE_PROFILE_SUCCESS]: updateProfileSuccess,
   [Types.UPDATE_PROFILE_FAILURE]: failure,
   [Types.LOGOUT]: empty,

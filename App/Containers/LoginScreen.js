@@ -141,7 +141,7 @@ const mapStateToProps = state => {
   return {
     fetching: state.login.fetching,
     error: state.login.error,
-    loggedInUser: state.profile.phoneNumber
+    loggedInUser: state.profile.phoneNumber && state.profile.user.name
   }
 }
 

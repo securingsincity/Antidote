@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { Colors, Metrics } from '../Themes'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import HelpActions from '../Redux/HelpRedux'
+import ProfileActions from '../Redux/ProfileRedux'
 /* ***********************************************************
 * IMPORTANT!!! Before you get started, if you are going to support Android,
 * PLEASE generate your own API key and add it to android/app/src/main/AndroidManifest.xml
@@ -46,6 +47,9 @@ class MapviewExample extends React.Component {
         const longitude = position.coords.longitude
         const longitudeDelta = 0.02;
         const latitudeDelta = 0.02;
+        const user = this.props.profile.user;
+        const updatedUser = user.merge({location: [latitude,longitude]})
+        this.props.updateProfile(updatedUser)
         this.setState({
           initialPosition: {
             latitude,
@@ -73,7 +77,9 @@ class MapviewExample extends React.Component {
       const latitudeDelta = 0.02;
       if (latitude !== this.props.latitude && longitude !== this.props.longitude) {
         this.props.getAddress(latitude, longitude);
-        this.props.setProfileAddress(latitude, longitude)
+        const user = this.props.profile.user;
+        const updatedUser = user.merge({location: [latitude,longitude]})
+        this.props.updateProfile(updatedUser)
       } 
       this.setState({
         initialPosition: {
@@ -206,7 +212,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getAddress: (lat,long) =>   dispatch(HelpActions.locationRequest(lat,long)),
-    setProfileAddress: (lat,long) => {console.log(lat,long)}
+    updateProfile: (user) => dispatch(ProfileActions.updateProfileRequest(user))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MapviewExample)
