@@ -18,7 +18,7 @@ export function * verify ({ phoneNumber, verificationCode }) {
 
 export function * updateProfileSaga({ user }) {
   if (!user.phoneNumber) {
-    yield put(ProfileActions.updateProfileFailure('Unable to update user'))
+    yield put(ProfileActions.updateProfileFailure('No phone number provided to update the user of'))
   } else {
     var result = yield call(updateProfile, user);
     if (result.ok && result.data.success) {

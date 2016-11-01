@@ -12,11 +12,11 @@ class HeaderBar extends Component {
         const screenWidthIn12 = (this.props.screenWidth/12)
         return  ( 
         <View style={[Styles.container]}>
-            <SideBox width={screenWidthIn12*5} />
-            <View style={{width: screenWidthIn12*2}}>
+            <SideBox width={screenWidthIn12*4} />
+            <View style={{width: screenWidthIn12*4}}>
                 <Text style={[Styles.text]}>{this.props.title}</Text><View />
             </View>
-            <SideBox width={screenWidthIn12*5} /> 
+            <SideBox width={screenWidthIn12*4} /> 
         </View>
         )
     }

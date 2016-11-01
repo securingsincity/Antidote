@@ -13,12 +13,13 @@ export default StyleSheet.create({
   button: {
     width: 80,
     paddingHorizontal: 12,
+    paddingVertical: 20,
     alignItems: 'center',
-    marginHorizontal: 10,
+    marginHorizontal: 30,
   },
   bubble: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,1)',
+    backgroundColor: Colors.antidotePurple,
     paddingHorizontal: 18,
     paddingVertical: 12,
     borderRadius: 0,
@@ -34,10 +35,14 @@ export default StyleSheet.create({
     borderRadius: 0,
   },
   buttonText: {
-    color: Colors.snow,
+    color: Colors.white,
+    fontWeight: 'bold',
   },
   availablityText: {
-    color: Colors.coal,
+    // color: Colors.coal,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   availablityContainer: {
     borderWidth: 1,

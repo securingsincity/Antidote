@@ -178,7 +178,7 @@ class MapviewExample extends React.Component {
             onPress={this.requestHelp}
             style={[Styles.bubble, Styles.button]}
           >
-            <Text style={Styles.buttonText}>Request Help</Text>
+            <Text style={Styles.buttonText}>REQUEST HELP</Text>
           </TouchableOpacity>
         </View>
         <View style={Styles.availablityContainer}>
@@ -187,11 +187,15 @@ class MapviewExample extends React.Component {
             style={Styles.availability}
           >
             
-            <Text style={Styles.availablityText}>
-              <Icon name='circle' size={Metrics.icons.tiny} color={this.props.user.available ? Colors.green : Colors.ember} />
-              {this.props.user.available ? ("    I'm Available Right Now       ".toUpperCase()) : ("    I'm Not Available Right Now       ".toUpperCase()) }
-              <Icon name='angle-right' size={Metrics.icons.tiny} color={Colors.coal} />
-            </Text>
+            <View style={Styles.availablityText}>
+              <View><Icon name='circle' size={Metrics.icons.tiny} color={this.props.user.available ? Colors.green : Colors.ember} /></View>
+              <View>{ 
+                  this.props.user.available 
+                    ? <Text style={[{color: Colors.green, marginLeft: 80, marginRight: 70}]}>I'M ON CALL TO RESPOND</Text>
+                    : <Text style={[{color: Colors.ember, marginLeft: 60, marginRight: 40}]}>I'M NOT AVAILABLE RIGHT NOW</Text>
+                }</View>
+              <View><Icon name='angle-right' size={Metrics.icons.tiny} color={Colors.coal} /></View>
+            </View>
           </TouchableOpacity>
         </View>
       </View>

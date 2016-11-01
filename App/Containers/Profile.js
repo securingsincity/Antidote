@@ -99,8 +99,7 @@ export class Profile extends React.Component {
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]}>
-        <Text style={Styles.rowLabel}>{this.props.error}</Text>
-        <Text style={Styles.rowLabel}>Edit Profile</Text>
+
         <View style={Styles.form}>
           <View style={Styles.row}>
             <Text style={Styles.rowLabel}>First Name</Text>
@@ -116,7 +115,7 @@ export class Profile extends React.Component {
               placeholder={'John Smith'} />
             <Text style={Styles.rowLabel}>License Plate</Text>
             <TextInput
-              ref='licensePlat'
+              ref='licensePlate'
               style={textInputStyle}
               value={licensePlate}
               editable={editable}
@@ -125,7 +124,6 @@ export class Profile extends React.Component {
               underlineColorAndroid='transparent'
               placeholder={'GFB-1212'} />
           </View>
-
           <View style={[Styles.loginRow]}>
             <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.updateUser}>
               <View style={Styles.loginButton}>
@@ -133,6 +131,9 @@ export class Profile extends React.Component {
               </View>
             </TouchableOpacity>
           </View>
+        </View>
+        <View style={Styles.row}>
+          <Text style={Styles.rowLabel}>{this.props.error}</Text>
         </View>
 
       </ScrollView>

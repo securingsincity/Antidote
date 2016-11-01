@@ -7,8 +7,8 @@ class CalloutBox extends Component {
                 borderWidth: 1,
                 borderColor: "#000000",
                 alignItems:"center",
-                padding: 30,
-                margin: 30,
+                padding: 20,
+                margin: 40,
             }}>
                 <Text style={{
                     fontSize: 26,
