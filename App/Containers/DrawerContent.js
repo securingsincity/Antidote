@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Image, Alert } from 'react-native'
+import { ScrollView, Image, Alert, Text } from 'react-native'
 import styles from './Styles/DrawerContentStyle'
 import { Images } from '../Themes'
 import DrawerButton from '../Components/DrawerButton'
@@ -43,7 +43,7 @@ class DrawerContent extends Component {
   render () {
     return (
       <ScrollView style={styles.container}>
-        <Image source={Images.logo} style={styles.logo} />
+        <Text style={styles.text}>ANTIDOTE</Text>
         <DrawerButton text='Home' onPress={this.handlePressComponents} />
         <DrawerButton text='Profile' onPress={this.handleProfile} />
         <DrawerButton text='Logout' onPress={this.handleLogout} />
@@ -56,5 +56,6 @@ class DrawerContent extends Component {
 DrawerContent.contextTypes = {
   drawer: React.PropTypes.object
 }
+
 
 export default DrawerContent
