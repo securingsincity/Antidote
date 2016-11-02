@@ -17,6 +17,8 @@
 
 **Step 6:** Get the second extra secret file and put it here `ios/GoogleService-Info.plist` https://privnote.com/TiHXDYpm
 
+**Step 7:** Set up the server https://github.com/securingsincity/Antidote-server
+
 
 ## :arrow_forward: How to Run App
 
