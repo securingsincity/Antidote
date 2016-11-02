@@ -9,6 +9,14 @@
 
 **Step 3:** Install the Application with `npm install`
 
+**Step 4:** Install the react-native-cli `npm install -g react-native-cli`
+
+**Step 5:** Get the extra sectret files password form @spoonscen or @securingsincity
+
+**Step 5:** Get the first extra secret file and put it here `andriod/app/google-services.json` https://privnote.com/lIgxwB1P
+
+**Step 6:** Get the second extra secret file and put it here `ios/GoogleService-Info.plist` https://privnote.com/TiHXDYpm
+
 
 ## :arrow_forward: How to Run App
 
@@ -19,9 +27,6 @@
   * for Android
     * Run Genymotion
     * run `react-native run-android`
-
-
-
 
 
 
