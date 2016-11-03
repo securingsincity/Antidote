@@ -6,7 +6,7 @@ import { getAddress } from '../Services/antidoteServer'
 const errorMsg = 'Failed to get address'
 export function * addressLookup({lat, long}) {
     if (!lat || !long) {
-        yield put(HelpActions.failure(errorMsg))
+        yield put(HelpActions.locationFailure(errorMsg))
     } else {
         var result = yield call(getAddress, lat, long)
         if (result.ok && result.data.success) {

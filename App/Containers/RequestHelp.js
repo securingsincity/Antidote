@@ -32,7 +32,7 @@ class RequestHelp extends Component {
     render() {
         const screenWidth = Metrics.screenWidth;
         return (
-            <View contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: Metrics.screenHeight, width: Metrics.screenWidth}]}>
+            <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: Metrics.screenHeight, width: Metrics.screenWidth}]}>
                 <HeaderBar title={"Alert"} screenWidth={screenWidth}/>
                 <CalloutBox>{"Requesting\n Help".toUpperCase()}</CalloutBox>
                 <View style={[Styles.row, {marginLeft: 30}]}>
@@ -71,7 +71,7 @@ class RequestHelp extends Component {
                     }}>CANCEL REQUEST</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </ScrollView>
         );
     }
 }

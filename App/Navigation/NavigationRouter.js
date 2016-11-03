@@ -31,7 +31,7 @@ class NavigationRouter extends Component {
             <Scene key='responderCurrentlyAvailable' component={ResponderCurrentlyAvailable} role="responder" title='Availability' renderLeftButton={NavItems.call911}   type={ActionConst.REPLACE} />
           </Scene>
         </Scene>
-        <Scene key='needsHelp'>
+        <Scene key='needsHelp' titleStyle={Styles.title}>
           <Scene key='home' initial component={HelpMap} title='Antidote' renderLeftButton={NavItems.call911}   />
           <Scene key='requestHelp'  component={RequestHelp}  role="needsHelp" title='Antidote' renderLeftButton={NavItems.call911} type={ActionConst.REPLACE}  />
           
