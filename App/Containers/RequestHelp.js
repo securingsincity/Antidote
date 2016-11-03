@@ -51,6 +51,11 @@ class RequestHelp extends Component {
                         fontWeight: "bold",
                         textAlign: "left"
                     }}>{this.props.address}</Text>
+                    <Text style={{
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        textAlign: "left"
+                    }}>{this.props.phoneNumber}</Text>
                 </View>
                 <View style={{
                     flex: 1,
@@ -76,6 +81,7 @@ const mapStateToProps = state => {
         address: state.help.address,
         lat: state.help.lat,
         long: state.help.long,
+        phoneNumber: state.login.phoneNumber
     }
 }
 

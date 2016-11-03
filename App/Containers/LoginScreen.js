@@ -21,6 +21,7 @@ export class LoginScreen extends React.Component {
     super(props)
     this.state = {
       phoneNumber: '',
+      error: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth },
       isAttemptingLogin: false
@@ -74,24 +75,31 @@ export class LoginScreen extends React.Component {
 
   handlePressLogin = () => {
     const { phoneNumber } = this.state
+    if (phoneNumber < 10) return this.createStateError()
     this.setState({isAttemptingLogin: true})
     this.props.attemptLogin(phoneNumber)
   }
 
+  createStateError = () => {
+    this.setState({ error: 'Phone number must be 10 digits' })
+  }
+  
   handleChangePhoneNumber = phoneNumber => {
     this.setState({ phoneNumber })
   }
+
   handlePressINeedHelp =  () => {
-    // const { phoneNumber } = this.state
-    // this.setState({isAttemptingLogin: true})
+    const { phoneNumber } = this.state
+    if (phoneNumber < 10) return this.createStateError()
+    this.props.attemptLoginNeedHelp(phoneNumber)
     NavigationActions.needsHelp()
   }
+
   render () {
     const { phoneNumber } = this.state
-    const { fetching, error,loggedInUser } = this.props
+    const { fetching, error, loggedInUser } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
-
 
     return (
       <View contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]}>
@@ -116,14 +124,14 @@ export class LoginScreen extends React.Component {
                 <Text style={Styles.loginText}>I CARRY NALOXONE</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressINeedHelp}>
+            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressINeedHelp} >
               <View style={Styles.loginButtonRight}>
                 <Text style={Styles.loginText}>I NEED HELP</Text>
               </View>
             </TouchableOpacity>
           </View>
         </View>
-        <Text style={[Styles.rowLabel, {paddingLeft: 20}]}>{error}</Text>
+        <Text style={[Styles.rowLabel, {paddingLeft: 20}]}>{error || this.state.error}</Text>
 
       </View>
     )
@@ -134,7 +142,8 @@ export class LoginScreen extends React.Component {
 LoginScreen.propTypes = {
   dispatch: PropTypes.func,
   fetching: PropTypes.bool,
-  attemptLogin: PropTypes.func
+  attemptLogin: PropTypes.func,
+  attemptLoginNeedHelp: PropTypes.func
 }
 
 const mapStateToProps = state => {
@@ -147,7 +156,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (phoneNumber) => dispatch(LoginActions.loginRequest(phoneNumber))
+    attemptLogin: (phoneNumber) => dispatch(LoginActions.loginRequest(phoneNumber)),
+    attemptLoginNeedHelp: (phoneNumber) => dispatch(LoginActions.loginRequestNeedHelp(phoneNumber))
   }
 }
 
