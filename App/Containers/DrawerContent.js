@@ -4,7 +4,7 @@ import styles from './Styles/DrawerContentStyle'
 import { Images } from '../Themes'
 import DrawerButton from '../Components/DrawerButton'
 import { Actions as NavigationActions } from 'react-native-router-flux'
-
+import FCM from 'react-native-fcm';
 class DrawerContent extends Component {
 
   toggleDrawer () {
@@ -33,6 +33,7 @@ class DrawerContent extends Component {
           text: 'OK', 
           onPress: () => {
             this.props.logout();
+            FCM.unsubscribeFromTopic('/topics/foo-bar');
             NavigationActions.login({type: 'reset'})  
           }
         },

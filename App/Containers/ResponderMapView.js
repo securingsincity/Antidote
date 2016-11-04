@@ -10,6 +10,7 @@ import { Colors, Metrics } from '../Themes'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import HelpActions from '../Redux/HelpRedux'
 import ProfileActions from '../Redux/ProfileRedux'
+// import FCM from 'react-native-fcm';
 /* ***********************************************************
 * IMPORTANT!!! Before you get started, if you are going to support Android,
 * PLEASE generate your own API key and add it to android/app/src/main/AndroidManifest.xml
@@ -40,7 +41,8 @@ class MapviewExample extends React.Component {
   watchID: ?number = null;
   constructor (props) {
     super(props)
-    
+    // FCM.subscribeToTopic('/topics/alerts');
+  
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const latitude = position.coords.latitude

@@ -1,7 +1,6 @@
 // An All Components Screen is a great way to dev and quick-test components
 import React from 'react'
 import { View, ScrollView, Text, Image, NetInfo } from 'react-native'
-import DeviceInfo from 'react-native-device-info'
 import { Metrics, Images } from '../Themes'
 import { map, fromPairs } from 'ramda'
 import styles from './Styles/DeviceInfoScreenStyle'

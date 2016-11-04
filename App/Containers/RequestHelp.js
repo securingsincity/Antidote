@@ -16,10 +16,16 @@ import HeaderBar from '../Components/HeaderBar'
 import CalloutBox from '../Components/CalloutBox'
 // import ProfileActions from '../Redux/ProfileRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
-
+import HelpActions from '../Redux/HelpRedux'
 class RequestHelp extends Component {
     constructor (props) {
         super(props);
+        this.props.createAlert({
+            lat: this.props.lat,
+            long: this.props.long,
+            geocoded: this.props.address,
+            phoneNumber: this.props.phoneNumber
+        })
         this.cancelRequest = this.cancelRequest.bind(this);
     }
     cancelRequest() {
@@ -87,6 +93,7 @@ const mapStateToProps = state => {
 
 const  mapDispatchToProps = (dispatch) => {
     return {
+        createAlert: (body) =>   dispatch(HelpActions.alertRequest(body)),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(RequestHelp)

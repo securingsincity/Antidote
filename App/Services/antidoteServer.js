@@ -32,3 +32,6 @@ export const getAddress = (lat, long) => {
   return api.post('/alerts/geocode', {lat, long})
 }
 
+export const sendAlert = (body) => {
+  return api.post('/alerts', body);
+}
