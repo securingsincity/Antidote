@@ -18,7 +18,9 @@
     "android:hockeyapp": "cd android && ./gradlew assembleRelease && puck -submit=auto app/build/outputs/apk/app-release.apk",
     "android:devices": "$ANDROID_HOME/platform-tools/adb devices",
     "android:logcat": "$ANDROID_HOME/platform-tools/adb logcat *:S ReactNative:V ReactNativeJS:V",
-    "android:shake": "$ANDROID_HOME/platform-tools/adb devices | grep '\\t' | awk '{print $1}' | sed 's/\\s//g' | xargs -I {} $ANDROID_HOME/platform-tools/adb -s {} shell input keyevent 82"
+    "android:shake": "$ANDROID_HOME/platform-tools/adb devices | grep '\\t' | awk '{print $1}' | sed 's/\\s//g' | xargs -I {} $ANDROID_HOME/platform-tools/adb -s {} shell input keyevent 82",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "apisauce": "^0.5.0",
@@ -41,7 +43,8 @@
     "redux-persist": "^3.5.0",
     "redux-saga": "^0.11.1",
     "reduxsauce": "0.2.0",
-    "seamless-immutable": "^6.1.0"
+    "seamless-immutable": "^6.1.0",
+    "snyk": "^1.29.0"
   },
   "devDependencies": {
     "ava": "^0.16.0",
@@ -86,5 +89,6 @@
       "FormData"
     ]
   },
-  "config": {}
+  "config": {},
+  "snyk": true
 }
