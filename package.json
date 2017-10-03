@@ -44,7 +44,7 @@
     "redux-saga": "^0.11.1",
     "reduxsauce": "0.2.0",
     "seamless-immutable": "^6.1.0",
-    "snyk": "^1.29.0"
+    "snyk": "^1.42.3"
   },
   "devDependencies": {
     "ava": "^0.16.0",
